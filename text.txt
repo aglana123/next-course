@@ -1,0 +1,12 @@
+rm -rf .next =  delete all next catch
+
+npx prisma generate 
+npx prisma db push
+
+remove all database 
+npx prisma migrate reset
+
+after remove 
+npx prisma generate 
+npx prisma db push
+npx prisma studio
