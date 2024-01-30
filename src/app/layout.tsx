@@ -1,8 +1,17 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import './globals.css';
+import ClientProvider from '@/provider/ClientProvider';
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin';
+import { extractRouterConfig } from 'uploadthing/server';
+import { ourFileRouter } from './api/uploadthing/core';
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({
+	weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+	style: ['normal', 'italic'],
+	subsets: ['latin'],
+	display: 'swap',
+});
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -16,7 +25,14 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>{children}</body>
+			<body className={poppins.className}>
+				<ClientProvider>
+					<NextSSRPlugin
+						routerConfig={extractRouterConfig(ourFileRouter)}
+					/>
+					{children}
+				</ClientProvider>
+			</body>
 		</html>
 	);
 }
