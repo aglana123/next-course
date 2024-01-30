@@ -93,4 +93,7 @@
 	.line-claps-with-ellipsis {
 		@apply line-clamp-2 text-ellipsis;
 	}
+	.apply-animation {
+		@apply transition-all ease-in-out duration-300;
+	}
 }
