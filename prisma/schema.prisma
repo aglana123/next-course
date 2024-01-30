@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -31,8 +32,8 @@ model Account {
 
 model User {
   id             String           @id @default(cuid())
-  name           String?
-  email          String?          @unique
+  name           String
+  email          String           @unique
   emailVerified  DateTime?
   image          String?
   accounts       Account[]
@@ -76,23 +77,62 @@ model Category {
   courses Course[]
 }
 
+enum PublicAccess {
+  Private
+  Public
+}
+
 model Course {
-  id               String           @id @default(cuid())
-  title            String
-  author_id        String
-  author           User             @relation(fields: [author_id], references: [id])
-  slug             String
-  price            Decimal
-  image            String
-  description      String?          @db.String
-  level            CoursesLevel     @default(Beginner)
-  category         Category         @relation(fields: [category_id], references: [slug])
-  category_id      String
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  id            String        @id @default(cuid())
+  title         String
+  author_id     String
+  author        User          @relation(fields: [author_id], references: [id])
+  slug          String
+  public_access PublicAccess? @default(Public)
+  imageUrl      String?
+  description   String?       @db.String
+  level         CoursesLevel  @default(Beginner)
+  is_published  Boolean       @default(false)
+
+  category_id   String?
+  category      Category?     @relation(fields: [category_id], references: [slug])
+
+  chapters         Chapter[]
   enrolled_courses EnrolledCourse[]
 
-  @@index([slug, title, price, author_id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug, title, public_access, author_id,category_id, createdAt])
+}
+
+model Chapter {
+  id           String         @id @default(cuid())
+  title        String
+  courseId     String
+  description  String         @db.String
+  video_url    String
+  is_published Boolean        @default(false)
+  position     Int
+  userProgress UserProgress[]
+
+  Course Course @relation(fields: [courseId], references: [id])
+}
+
+model UserProgress {
+  id     String @id @default(uuid())
+  userId String
+
+  chapterId String
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  isCompleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, chapterId])
+  @@index([chapterId])
 }
 
 model EnrolledCourse {
