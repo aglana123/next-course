@@ -83,19 +83,19 @@ enum PublicAccess {
 }
 
 model Course {
-  id            String        @id @default(cuid())
+  id            String       @id @default(cuid())
   title         String
   author_id     String
-  author        User          @relation(fields: [author_id], references: [id])
+  author        User         @relation(fields: [author_id], references: [id])
   slug          String
-  public_access PublicAccess? @default(Public)
+  public_access PublicAccess @default(Public)
   imageUrl      String?
-  description   String?       @db.String
-  level         CoursesLevel  @default(Beginner)
-  is_published  Boolean       @default(false)
+  description   String?      @db.String
+  level         CoursesLevel @default(Beginner)
+  is_published  Boolean      @default(false)
 
-  category_id   String?
-  category      Category?     @relation(fields: [category_id], references: [slug])
+  category_id String?
+  category    Category? @relation(fields: [category_id], references: [slug])
 
   chapters         Chapter[]
   enrolled_courses EnrolledCourse[]
@@ -103,7 +103,7 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([slug, title, public_access, author_id,category_id, createdAt])
+  @@index([slug, title, public_access, author_id, category_id, createdAt])
 }
 
 model Chapter {
