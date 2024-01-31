@@ -109,14 +109,19 @@ model Course {
 model Chapter {
   id           String         @id @default(cuid())
   title        String
-  courseId     String
-  description  String         @db.String
-  video_url    String
+  description  String?        @db.String
+  video_url    String?        @db.String
   is_published Boolean        @default(false)
   position     Int
   userProgress UserProgress[]
 
-  Course Course @relation(fields: [courseId], references: [id])
+  courseId String
+  Course   Course @relation(fields: [courseId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
 }
 
 model UserProgress {
