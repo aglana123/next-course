@@ -31,16 +31,17 @@ model Account {
 }
 
 model User {
-  id             String           @id @default(cuid())
-  name           String
-  email          String           @unique
-  emailVerified  DateTime?
-  image          String?
-  accounts       Account[]
-  sessions       Session[]
-  role           UserRole         @default(STUDENT)
-  EnrolledCourse EnrolledCourse[]
-  createdCourses Course[]
+  id                   String                 @id @default(cuid())
+  name                 String
+  email                String                 @unique
+  emailVerified        DateTime?
+  image                String?
+  accounts             Account[]
+  sessions             Session[]
+  role                 UserRole               @default(STUDENT)
+  EnrolledCourse       EnrolledCourse[]
+  createdCourses       Course[]
+  AccessPrivateCourses AccessPrivateCourses[]
 }
 
 model Session {
@@ -87,7 +88,7 @@ model Course {
   title         String
   author_id     String
   author        User         @relation(fields: [author_id], references: [id])
-  slug          String
+  slug          String       @unique
   public_access PublicAccess @default(Public)
   imageUrl      String?
   description   String?      @db.String
@@ -100,10 +101,20 @@ model Course {
   chapters         Chapter[]
   enrolled_courses EnrolledCourse[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  AccessPrivateCourses AccessPrivateCourses[]
 
   @@index([slug, title, public_access, author_id, category_id, createdAt])
+}
+
+model AccessPrivateCourses {
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+
+  @@unique([userId, courseId])
 }
 
 model Chapter {
