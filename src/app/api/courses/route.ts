@@ -1,39 +1,59 @@
-import db from '@/lib/db';
+import { NextResponse } from 'next/server';
+import slugify from 'slugify';
 
+import db from '@/lib/db';
+import { getAuthSession } from '@/lib/auth';
 import { z } from 'zod';
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
 	try {
-		const url = new URL(req.url);
+		const { title } = await req.json();
 
-		const { limit, page, slug, level, category_id, public_access } = z
-			.object({
-				slug: z.string(),
-				level: z.string(),
-				category_id: z.string(),
-				public_access: z.string(),
-				limit: z.string(),
-				page: z.string(),
-			})
-			.parse({
-				slug: url.searchParams.get('slug'),
-				level: url.searchParams.get('level'),
-				category_id: url.searchParams.get('category_id'),
-				public_access: url.searchParams.get('public_access'),
-				limit: url.searchParams.get('limit'),
-				page: url.searchParams.get('page'),
+		const session = await getAuthSession();
+		const user = session?.user;
+
+		if (!user) {
+			return new NextResponse('Unauthorized. Missing Session', {
+				status: 401,
 			});
-
-		let result;
-
-		return Response.json(result);
-	} catch (error) {
-		if (error instanceof z.ZodError) {
-			return new Response('Invalid request data passed', { status: 422 });
 		}
 
-		console.log(error);
+		const Teacher = await db.user.findUnique({
+			where: {
+				id: user.id,
+			},
+			select: {
+				id: true,
+				role: true,
+			},
+		});
+		if (Teacher?.role !== 'TEACHER') {
+			return new NextResponse('Unauthorized', {
+				status: 401,
+			});
+		}
 
-		return new Response('Could not fetch more posts', { status: 500 });
+		const slug = slugify(title, {
+			lower: true,
+		});
+
+		const course = await db.course.create({
+			data: {
+				title,
+				author_id: Teacher.id,
+				slug,
+			},
+		});
+
+		return NextResponse.json(course);
+	} catch (error) {
+		if (error instanceof z.ZodError) {
+			return new NextResponse('Invalid request data passed', {
+				status: 422,
+			});
+		}
+		console.log('[COURSES]', error);
+
+		return new NextResponse('Internal Error', { status: 500 });
 	}
 }
