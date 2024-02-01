@@ -3,7 +3,7 @@ import { BarChart3Icon, BookMarkedIcon } from 'lucide-react';
 
 const Sidebar = () => {
 	return (
-		<div className="fixed w-[300px] min-h-dvh h-full bg-white shadow shadow-black/30">
+		<div className="fixed w-[300px] min-h-dvh h-full bg-white shadow shadow-black/30 max-lg:hidden">
 			<div className="flex w-full flex-col absolute top-0 left-0 pl-4 py-8 gap-6">
 				<MainLogo />
 				<div className="w-full relative">
