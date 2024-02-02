@@ -4,9 +4,11 @@ import { Chapter } from '@prisma/client';
 interface GetChapterProps {
 	courseSlug: string;
 	chapterId: string;
+	userId: string;
 }
 
 export const getChapter = async ({
+	userId,
 	courseSlug,
 	chapterId,
 }: GetChapterProps) => {
@@ -15,11 +17,32 @@ export const getChapter = async ({
 			where: {
 				is_published: true,
 				slug: courseSlug,
+				OR: [
+					{
+						public_access: 'Public',
+					},
+					{
+						AND: [
+							{ public_access: 'Private' },
+							{
+								OR: [
+									{ author_id: userId },
+									{
+										AccessPrivateCourses: {
+											some: { userId: userId },
+										},
+									},
+								],
+							},
+						],
+					},
+				],
 			},
 		});
 
 		const chapter = await db.chapter.findUnique({
 			where: {
+				
 				id: chapterId,
 				is_published: true,
 			},
