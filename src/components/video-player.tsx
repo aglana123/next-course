@@ -3,12 +3,7 @@
 import { FC, useEffect, useState } from 'react';
 import ReactPlayer, { ReactPlayerProps } from 'react-player';
 
-type VideoPlayerProps = {
-	url: string;
-	props?: ReactPlayerProps;
-};
-
-const VideoPlayer: FC<VideoPlayerProps> = ({ url, ...props }) => {
+const VideoPlayer: FC<ReactPlayerProps> = ({ url, ...props }) => {
 	const [isClient, setIsClient] = useState(false);
 
 	useEffect(() => {
