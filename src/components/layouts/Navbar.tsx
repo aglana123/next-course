@@ -1,10 +1,12 @@
+'use client';
 import SearchBar from '@/components/layouts/SearchBar';
 import MainLogo from '@/components/layouts/MainLogo';
 import NavMenu from '@/components/layouts/NavMenu';
 import HumburgerMenu from '@/components/layouts/HumburgerMenu';
 import CategoriesPopUp from './CategoriesPopUp';
+import { User } from 'next-auth';
 
-const Navbar = () => {
+const Navbar = ({ user }: { user?: User }) => {
 	return (
 		<>
 			<header className="w-full h-[64px] lg:h-[80px] shadow-md shadow-black/5 bg-white z-[50] fixed top-0">
@@ -18,9 +20,8 @@ const Navbar = () => {
 						<CategoriesPopUp />
 						<SearchBar />
 					</div>
-
 					{/* right */}
-					<NavMenu />
+					<NavMenu user={user} />
 				</nav>
 			</header>
 		</>
