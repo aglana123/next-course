@@ -32,9 +32,9 @@ export const columns: ColumnDef<Course>[] = [
 		},
 		cell: ({ row }) => {
 			return (
-				<div className="flex gap-2 items-center">
+				<div className="flex gap-2 items-center whitespace-nowrap">
 					<Image
-						className="object-cover aspect-video"
+						className="object-cover aspect-video max-lg:hidden"
 						width={50}
 						height={50}
 						src={row.original.imageUrl || '/pngwing.com (13).png'}
