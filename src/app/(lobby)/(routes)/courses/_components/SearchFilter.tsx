@@ -1,4 +1,5 @@
 'use client';
+
 import { FC, useCallback } from 'react';
 import { Circle } from 'lucide-react';
 import { Category } from '@prisma/client';
@@ -24,7 +25,6 @@ const SearchFilter: FC<SearchFilterProps> = ({ categories }) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
-
 
 	const selectedCategory = searchParams.get('category');
 	const selectedLevel = searchParams.get('level');
