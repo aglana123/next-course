@@ -18,16 +18,17 @@ export async function POST(req: Request) {
 			});
 		}
 
-		const Teacher = await db.user.findUnique({
+		const teacher = await db.user.findUnique({
 			where: {
 				id: user.id,
+				role: 'TEACHER',
 			},
 			select: {
 				id: true,
 				role: true,
 			},
 		});
-		if (Teacher?.role !== 'TEACHER') {
+		if (!teacher) {
 			return new NextResponse('Unauthorized', {
 				status: 401,
 			});
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
 		const course = await db.course.create({
 			data: {
 				title,
-				author_id: Teacher.id,
+				author_id: teacher.id,
 				slug,
 			},
 		});
