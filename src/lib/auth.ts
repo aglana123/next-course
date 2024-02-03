@@ -20,13 +20,33 @@ export const authOptions: NextAuthOptions = {
 	},
 	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
-		async jwt({ token, user }) {
+		async jwt({ token, user, trigger, session }) {
 			if (user) {
 				token.id = user.id;
 				token.email = user.email;
 				token.name = user.name;
 				token.picture = user.image;
 				token.role = user.role;
+			}
+			if (
+				trigger === 'update' &&
+				session?.role &&
+				session?.role !== 'ADMIN'
+			) {
+				token.role = session.role;
+				const updateUser = await db.user.update({
+					where: {
+						id: token.id,
+						NOT: {
+							role: 'ADMIN',
+						},
+					},
+					data: {
+						role: session.role,
+					},
+				});
+
+				console.log(updateUser);
 			}
 
 			return token;
