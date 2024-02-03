@@ -30,6 +30,33 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model RequestAccess {
+  courseId   String
+  course     Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  senderId   String
+  senderName String
+
+  @@unique([courseId, userId, senderId])
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model RequestStatusInfo {
+  userId   String
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId String
+  course   Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  status   RequestStatus @default(PENDING)
+
+  @@unique([courseId, userId])
+}
+
 model User {
   id                   String                 @id @default(cuid())
   name                 String
@@ -42,6 +69,8 @@ model User {
   EnrolledCourse       EnrolledCourse[]
   createdCourses       Course[]
   AccessPrivateCourses AccessPrivateCourses[]
+  RequestAccess        RequestAccess[]
+  RequestStatusInfo    RequestStatusInfo[]
 }
 
 model Session {
@@ -87,7 +116,7 @@ model Course {
   id            String       @id @default(cuid())
   title         String
   author_id     String
-  author        User         @relation(fields: [author_id], references: [id])
+  author        User         @relation(fields: [author_id], references: [id], onDelete: Cascade)
   slug          String       @unique
   public_access PublicAccess @default(Public)
   imageUrl      String?
@@ -104,6 +133,8 @@ model Course {
   createdAt            DateTime               @default(now())
   updatedAt            DateTime               @updatedAt
   AccessPrivateCourses AccessPrivateCourses[]
+  RequestAccess        RequestAccess[]
+  RequestStatusInfo    RequestStatusInfo[]
 
   @@index([slug, title, public_access, author_id, category_id, createdAt])
 }
@@ -112,7 +143,7 @@ model AccessPrivateCourses {
   userId   String
   user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   courseId String
-  course   Course @relation(fields: [courseId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([userId, courseId])
 }
