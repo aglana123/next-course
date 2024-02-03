@@ -18,7 +18,7 @@ const CoursesTeacher = async () => {
 		},
 	});
 	return (
-		<div className="p-6 bg-white rounded shadow shadow-black/30">
+		<div className="px-4 md:p-6 md:bg-white rounded md:shadow shadow-black/30 ">
 			<DataTable
 				columns={columns}
 				data={courses}
