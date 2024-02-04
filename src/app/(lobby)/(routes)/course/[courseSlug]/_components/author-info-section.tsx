@@ -16,9 +16,9 @@ const AuthorInfoSection = ({
 	courseCount,
 }: AuthorInfoSectionProps) => {
 	return (
-		<div>
+		<div className="flex flex-col px-4 md:px-6 bg-white">
 			<h2>Instructor</h2>
-			<div className="w-full mt-2 p-4 flex gap-2 items-center lg:rounded-md lg:border lg:border-input">
+			<div className="w-full mt-1 p-4 flex gap-2 items-center lg:rounded-md lg:border lg:border-input">
 				<UserAvatar
 					className="w-14 h-14 lg:w-16 lg:h-16"
 					user={user}
