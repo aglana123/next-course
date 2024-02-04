@@ -66,17 +66,12 @@ const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
 							courseId={course.id}
 							publicAccess={course.public_access}
 						/>
-
-						<AuthorInfoSection
-							user={course.author}
-							name={course.author.name}
-							courseCount={courseCount}
-						/>
 					</section>
 
 					<CourseFacilitiesSection chapterCount={chapterCount} />
+
 					<div className="flex flex-col px-4 md:px-6 py-6 bg-white">
-						<h2 className="mb-4">Konten Kursus</h2>
+						<h2 className="mb-1">Konten Kursus</h2>
 						{course.chapters.map((chapter) => (
 							<div
 								key={chapter.id}
@@ -85,6 +80,11 @@ const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
 							</div>
 						))}
 					</div>
+					<AuthorInfoSection
+						user={course.author}
+						name={course.author.name}
+						courseCount={courseCount}
+					/>
 				</div>
 				<section className="w-5/12 xl:w-4/12 hidden lg:flex flex-col bg-white rounded-md overflow-hidden px-6 py-8 gap-2 h-fit">
 					<CourseInfoSection
@@ -97,11 +97,6 @@ const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
 					<ActionSection
 						courseId={course.id}
 						publicAccess={course.public_access}
-					/>
-					<AuthorInfoSection
-						user={course.author}
-						name={course.author.name}
-						courseCount={courseCount}
 					/>
 				</section>
 			</div>
