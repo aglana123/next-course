@@ -38,7 +38,6 @@ const UserCoursesPage = async () => {
 		);
 	}
 
-	console.log(userCourses);
 	const courses = userCourses.EnrolledCourse;
 
 	return (
