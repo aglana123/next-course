@@ -1,3 +1,5 @@
+'use client';
+
 import { User } from 'next-auth';
 import { FC } from 'react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -8,7 +10,6 @@ import { AvatarProps } from '@radix-ui/react-avatar';
 interface UserAvatarProps extends AvatarProps {
 	user: Pick<User, 'image' | 'name'>;
 	sizeImg: number;
-    
 }
 
 const UserAvatar: FC<UserAvatarProps> = ({ user, sizeImg, ...props }) => {
@@ -21,6 +22,7 @@ const UserAvatar: FC<UserAvatarProps> = ({ user, sizeImg, ...props }) => {
 					referrerPolicy="no-referrer"
 					width={sizeImg}
 					height={sizeImg}
+					priority
 				/>
 			) : (
 				<AvatarFallback>
