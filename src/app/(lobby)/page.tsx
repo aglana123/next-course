@@ -1,8 +1,8 @@
-import { categoriesAsset } from '@/asset/categories';
-import CoursesSection from '@/components/CoursesSection';
-import { Button } from '@/components/ui/button';
 import db from '@/lib/db';
 import Image from 'next/image';
+import HomePageAction from './_components/home-page-action';
+import FeaturedCategoriesSection from './_components/featured-categories-section';
+import FeaturedCoursesSection from './_components/featured-courses-section';
 
 export default async function Home() {
 	const courses = await db.course.findMany({
@@ -34,16 +34,7 @@ export default async function Home() {
 							Join Our Global Community of Learners and Educators
 							Today.
 						</p>
-						<div className="flex gap-4 max-lg:justify-center">
-							<Button
-								variant="secondary"
-								className="rounded-md px-5 py-3 text-base font-medium h-fit">
-								Enroll Courses
-							</Button>
-							<Button className="rounded-md px-5 py-3 text-base font-medium h-fit">
-								Become Teacher
-							</Button>
-						</div>
+						<HomePageAction />
 					</div>
 					<div className="relative h-full lg:h-[558px] max-lg:pt-6 lg:col-span-6 max-lg:row-start-1 w-full flex justify-center">
 						<Image
@@ -57,51 +48,10 @@ export default async function Home() {
 				</div>
 			</section>
 			<section className="py-6">
-				<div className="flex flex-col items-center max-w-screen-xl px-4 mx-auto ">
-					<div className="mb-8 max-w-sm text-center">
-						<h2 className="font-bold text-3xl md:text-4xl text-primary mb-2">
-							Categories Section
-						</h2>
-						<p>
-							Browse through the course categories that catch your
-							eye.
-						</p>
-					</div>
-
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 place-items-stretch">
-						{categoriesAsset.map((category) => (
-							<div
-								key={category.slug}
-								className="flex z-10 flex-col items-center py-8 px-6 gap-4 bg-white rounded-md shadow-sm shadow-black/30 max-w-md">
-								<Image
-									src={category.img}
-									alt={`image category of ${category.slug}`}
-									width={100}
-									height={100}
-								/>
-								<div className="w-full text-center flex flex-col gap-2">
-									<h3>{category.name}</h3>
-									<p>{category.description}</p>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
+				<FeaturedCategoriesSection />
 			</section>
 			<section className="py-6">
-				<div className="flex flex-col items-center max-w-screen-xl px-4 mx-auto h-full">
-					<div className="mb-8 max-w-sm text-center">
-						<h2 className="font-bold text-3xl md:text-4xl text-primary mb-2">
-							Courses Section
-						</h2>
-						<p>
-							Browse through the course categories that catch your
-							eye.
-						</p>
-					</div>
-
-					<CoursesSection courses={courses} />
-				</div>
+				<FeaturedCoursesSection courses={courses} />
 			</section>
 		</main>
 	);
