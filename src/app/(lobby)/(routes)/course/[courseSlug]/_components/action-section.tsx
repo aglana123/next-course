@@ -28,32 +28,37 @@ const ActionSection = ({
 		}
 	};
 	return (
-		<div className="px-4 py-10 w-full flex gap-4 justify-center bg-slate-50 border-y border-input">
-			<Button
-				variant={'secondary'}
-				className="h-fit py-4 text-lg px-8 font-semibold">
-				Add to Wishlist
-			</Button>
-			{publicAccess === 'Public' ? (
-				<Button
-					onClick={handleEnrollCourse}
-					variant={'ghost'}
-					className="h-fit font-semibold py-4 text-lg px-8 bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90">
-					Enroll Now
-				</Button>
-			) : (
-				<>
+		<div className=" py-4 w-full flex flex-col gap-4 justify-center ">
+			<div className="flex flex-col gap-4 justify-center">
+				{publicAccess === 'Public' ? (
 					<Button
 						onClick={handleEnrollCourse}
 						variant={'ghost'}
-						className="h-fit font-semibold py-4 text-lg px-8 bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90">
-						Get Access
+						className="h-fit font-medium py-4 text-lg  rounded-md bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90">
+						Enroll Now
 					</Button>
-					<span className="text-xs text-destructive/80">
-						Kursus ini memiliki akses privat. Untuk mengaksesnya,
-						Anda perlu meminta izin dari pemilik kursus.
-					</span>
-				</>
+				) : (
+					<>
+						<Button
+							onClick={handleEnrollCourse}
+							variant={'ghost'}
+							className="h-fit font-medium py-4 text-lg  rounded-md bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90">
+							Get Access
+						</Button>
+					</>
+				)}
+				<Button
+					variant={'secondary'}
+					className="h-fit py-4 text-lg px-6 font-medium rounded-md">
+					Add to Wishlist
+				</Button>
+			</div>
+			{publicAccess === 'Private' && (
+				<span className="text-xs text-destructive">
+					*Kursus ini memiliki akses privat. Klik{' '}
+					<strong className="text-xs">{`"Get Access" `}</strong>
+					untuk meminta izin pemilik kursus.
+				</span>
 			)}
 		</div>
 	);
