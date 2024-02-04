@@ -1,9 +1,26 @@
+import { categoriesAsset } from '@/asset/categories';
+import CoursesSection from '@/components/CoursesSection';
 import { Button } from '@/components/ui/button';
+import db from '@/lib/db';
 import Image from 'next/image';
 
-export default function Home() {
+export default async function Home() {
+	const courses = await db.course.findMany({
+		where: {
+			is_published: true,
+		},
+		include: {
+			author: {
+				select: {
+					name: true,
+				},
+			},
+		},
+		take: 8,
+	});
+
 	return (
-		<main className="mt-[64px] lg:mt-[80px] w-full">
+		<main className="mt-[64px] lg:mt-[80px] w-full flex flex-col gap-y-20">
 			<section className="bg-white">
 				<div className="grid max-w-screen-xl px-4 mx-auto lg:gap-8 lg:grid-cols-12 h-full pt-4">
 					<div className="place-self-center lg:col-span-6 py-8 lg:py-16">
@@ -11,7 +28,7 @@ export default function Home() {
 							Unlock Your Potential with Premier Learning
 							Solutions
 						</h1>
-						<p className="max-w-2xl max-lg:text-center mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl">
+						<p className="max-w-2xl max-lg:text-center mb-6 font-light text-black/80 lg:mb-8 md:text-lg lg:text-xl">
 							Discover Courses or Become an Educator: Your Journey
 							to Personal and Professional Growth Begins Here.
 							Join Our Global Community of Learners and Educators
@@ -39,78 +56,51 @@ export default function Home() {
 					</div>
 				</div>
 			</section>
-			<section>
-				<div className="flex flex-col items-center max-w-screen-xl px-4 mx-auto  h-full py-20">
+			<section className="py-6">
+				<div className="flex flex-col items-center max-w-screen-xl px-4 mx-auto ">
 					<div className="mb-8 max-w-sm text-center">
-						<h2 className="font-bold">Categories Section</h2>
+						<h2 className="font-bold text-3xl md:text-4xl text-primary mb-2">
+							Categories Section
+						</h2>
 						<p>
 							Browse through the course categories that catch your
 							eye.
 						</p>
 					</div>
 
-					<div className="grid grid-cols-1 lg:grid-cols-4 gap-6 place-items-stretch">
-						<div className="flex flex-col items-center py-8 px-6 gap-4 bg-white rounded-md shadow-sm shadow-black/30">
-							<Image
-								src="/categories-png/data-science_12062660.png"
-								alt="image category"
-								width={100}
-								height={100}
-							/>
-							<div className="w-full text-center flex flex-col gap-2">
-								<h3>Mobile Development</h3>
-								<p>
-									Explore the art of crafting responsive
-									mobile applications.
-								</p>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 place-items-stretch">
+						{categoriesAsset.map((category) => (
+							<div
+								key={category.slug}
+								className="flex z-10 flex-col items-center py-8 px-6 gap-4 bg-white rounded-md shadow-sm shadow-black/30 max-w-md">
+								<Image
+									src={category.img}
+									alt={`image category of ${category.slug}`}
+									width={100}
+									height={100}
+								/>
+								<div className="w-full text-center flex flex-col gap-2">
+									<h3>{category.name}</h3>
+									<p>{category.description}</p>
+								</div>
 							</div>
-						</div>
-						<div className="flex flex-col items-center py-8 px-6 gap-4 bg-white rounded-md shadow-sm shadow-black/30">
-							<Image
-								src="/categories-png/development_5608615.png"
-								alt="image category"
-								width={100}
-								height={100}
-							/>
-							<div className="w-full text-center flex flex-col gap-2">
-								<h3>Mobile Development</h3>
-								<p>
-									Explore the art of crafting responsive
-									mobile applications.
-								</p>
-							</div>
-						</div>
-						<div className="flex flex-col items-center py-8 px-6 gap-4 bg-white rounded-md shadow-sm shadow-black/30">
-							<Image
-								src="/categories-png/learning_8448212.png"
-								alt="image category"
-								width={100}
-								height={100}
-							/>
-							<div className="w-full text-center flex flex-col gap-2">
-								<h3>Mobile Development</h3>
-								<p>
-									Explore the art of crafting responsive
-									mobile applications.
-								</p>
-							</div>
-						</div>
-						<div className="flex flex-col items-center py-8 px-6 gap-4 bg-white rounded-md shadow-sm shadow-black/30">
-							<Image
-								src="/categories-png/web-settings_7990955.png"
-								alt="image category"
-								width={100}
-								height={100}
-							/>
-							<div className="w-full text-center flex flex-col gap-2">
-								<h3>Mobile Development</h3>
-								<p>
-									Explore the art of crafting responsive
-									mobile applications.
-								</p>
-							</div>
-						</div>
+						))}
 					</div>
+				</div>
+			</section>
+			<section className="py-6">
+				<div className="flex flex-col items-center max-w-screen-xl px-4 mx-auto h-full">
+					<div className="mb-8 max-w-sm text-center">
+						<h2 className="font-bold text-3xl md:text-4xl text-primary mb-2">
+							Courses Section
+						</h2>
+						<p>
+							Browse through the course categories that catch your
+							eye.
+						</p>
+					</div>
+
+					<CoursesSection courses={courses} />
 				</div>
 			</section>
 		</main>
