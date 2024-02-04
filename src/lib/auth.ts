@@ -31,7 +31,8 @@ export const authOptions: NextAuthOptions = {
 			if (
 				trigger === 'update' &&
 				session?.role &&
-				session?.role !== 'ADMIN'
+				session?.role !== 'ADMIN' &&
+				user?.role !== 'TEACHER'
 			) {
 				token.role = session.role;
 				const updateUser = await db.user.update({
