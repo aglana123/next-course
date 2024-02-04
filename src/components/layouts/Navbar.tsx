@@ -1,4 +1,3 @@
-'use client';
 import SearchBar from '@/components/layouts/SearchBar';
 import MainLogo from '@/components/layouts/MainLogo';
 import NavMenu from '@/components/layouts/NavMenu';
