@@ -33,7 +33,6 @@ const CourseCard: React.FC<CourseCardProps> = ({
 							sizes="(max-width: 400px) 100vw, (max-width: 700px) 50vw, (max-width: 900px) 33vw, 20vw"
 							src={src}
 							alt="card-img"
-							priority
 						/>
 					</div>
 				</CardHeader>
