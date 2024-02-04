@@ -18,7 +18,6 @@ type queryProps = {
 
 const CoursesPage: FC<CoursePageParams> = async ({ searchParams }) => {
 	const { q: slug, category, level, access, sort } = searchParams;
-	const categories = await db.category.findMany();
 
 	let query: queryProps = { is_published: true };
 	let sorting: { createdAt?: 'desc' | 'asc' } = {};
@@ -42,9 +41,10 @@ const CoursesPage: FC<CoursePageParams> = async ({ searchParams }) => {
 		query.public_access = acces1;
 	}
 
-	if (sort && sort === 'relevance') {
+	if (sort && sort !== 'relevance') {
 		sorting.createdAt = 'desc';
 	}
+	const categories = await db.category.findMany();
 	const courses = await db.course.findMany({
 		where: query,
 		include: {
