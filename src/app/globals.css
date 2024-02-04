@@ -75,22 +75,15 @@
 		@apply bg-neutral-100 text-foreground;
 	}
 	h1 {
-		@apply text-5xl font-bold max-md:text-3xl;
+		@apply text-3xl md:text-4xl xl:text-5xl font-bold;
 	}
 	h2 {
-		@apply text-3xl font-semibold max-md:text-2xl;
+		@apply text-2xl font-semibold max-md:text-xl;
 	}
 	h3 {
 		@apply text-xl font-medium max-md:text-lg;
 	}
-
 	p {
-		@apply text-base max-md:text-sm;
-	}
-	small {
-		@apply text-sm max-md:text-xs;
-	}
-	span {
 		@apply text-base max-md:text-sm;
 	}
 	.line-claps-with-ellipsis {
