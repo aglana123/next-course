@@ -25,11 +25,11 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 const userMenu = [
-	{ title: 'My Learning', icon: Book, href: '/courses' },
+	{ title: 'My Learning', icon: Book, href: '/my-courses' },
 	{ title: 'My Cart', icon: ShoppingBag, href: '/cart' },
 ];
 const userMenuTeacher = [
-	{ title: 'My Learning', icon: Book, href: '/courses' },
+	{ title: 'My Learning', icon: Book, href: '/my-courses' },
 	{
 		title: 'My Cart',
 		icon: ShoppingBag,
