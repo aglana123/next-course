@@ -1,3 +1,5 @@
+'use client';
+
 import { Heart, SearchIcon } from 'lucide-react';
 
 import NavMessages from './NavMessages';
@@ -5,6 +7,7 @@ import Link from 'next/link';
 import { Button } from '../ui/button';
 import { User } from 'next-auth';
 import UserMenuNav from './UserMenuNav';
+import UserAvatar from './UserAvatar';
 
 const NavMenu = ({ user }: { user?: User }) => {
 	return (
@@ -25,7 +28,15 @@ const NavMenu = ({ user }: { user?: User }) => {
 					</Link>
 					<Heart className="fill-slate-500 stroke-none max-lg:hidden" />
 					<NavMessages />
-					<UserMenuNav currentUser={user} />
+					<UserMenuNav>
+						<UserAvatar
+							user={{
+								name: user.name || null,
+								image: user.image || null,
+							}}
+							sizeImg={100}
+						/>
+					</UserMenuNav>
 				</>
 			) : (
 				<div className="flex items-center gap-2">

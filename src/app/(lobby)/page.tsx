@@ -3,8 +3,12 @@ import Image from 'next/image';
 import HomePageAction from './_components/home-page-action';
 import FeaturedCategoriesSection from './_components/featured-categories-section';
 import FeaturedCoursesSection from './_components/featured-courses-section';
+import { getAuthSession } from '@/lib/auth';
 
 export default async function Home() {
+	const session = await getAuthSession();
+
+	const user = session?.user ?? null;
 	const courses = await db.course.findMany({
 		where: {
 			is_published: true,
@@ -34,15 +38,16 @@ export default async function Home() {
 							Join Our Global Community of Learners and Educators
 							Today.
 						</p>
-						<HomePageAction />
+						<HomePageAction user={user} />
 					</div>
 					<div className="relative h-full lg:h-[558px] max-lg:pt-6 lg:col-span-6 max-lg:row-start-1 w-full flex justify-center">
 						<Image
-							className="static lg:absolute object-cover h-full sm:w-full max-lg:aspect-square max-lg:rounded-full max-lg:overflow-hidden max-lg:border border-input w-64 max-w-sm lg:max-w-2xl overflow-visible"
+							className="static lg:absolute object-cover h-full sm:w-full max-lg:aspect-square max-lg:rounded-full max-lg:overflow-hidden max-lg:border border-input w-64 max-w-sm lg:max-w-2xl overflow-auto"
 							height={670}
 							width={718}
 							src="/landing-page/pngwing.com (18).png"
 							alt="hero image for landing page"
+							priority
 						/>
 					</div>
 				</div>

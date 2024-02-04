@@ -1,5 +1,7 @@
-import Image from 'next/image';
+'use client';
 import { categoriesAsset } from '@/asset/categories';
+import Image from 'next/image';
+
 const FeaturedCategoriesSection = () => {
 	return (
 		<div className="flex flex-col items-center max-w-screen-xl px-4 mx-auto ">

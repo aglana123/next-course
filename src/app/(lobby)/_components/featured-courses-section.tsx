@@ -1,3 +1,5 @@
+'use client';
+
 import CoursesSection from '@/components/CoursesSection';
 import { Course } from '@prisma/client';
 import { FC } from 'react';
