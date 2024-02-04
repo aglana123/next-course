@@ -1,4 +1,4 @@
-import { BellIcon, SearchIcon } from 'lucide-react';
+import { Heart, SearchIcon } from 'lucide-react';
 
 import NavMessages from './NavMessages';
 import Link from 'next/link';
@@ -23,7 +23,7 @@ const NavMenu = ({ user }: { user?: User }) => {
 							My Courses
 						</span>
 					</Link>
-					<BellIcon className="fill-slate-500 stroke-none max-lg:hidden" />
+					<Heart className="fill-slate-500 stroke-none max-lg:hidden" />
 					<NavMessages />
 					<UserMenuNav currentUser={user} />
 				</>
