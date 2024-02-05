@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+	font-size: 14px;
+	line-height: 20px;
+}
+
 @layer base {
 	:root {
 		--background: 0 0% 100%;
@@ -68,9 +73,8 @@
 
 @layer base {
 	* {
-		@apply border-border text-[14px] leading-[20px];
+		@apply border-border;
 	}
-
 	body {
 		@apply bg-neutral-100 text-foreground;
 	}
