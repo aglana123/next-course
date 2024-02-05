@@ -29,8 +29,10 @@ export default async function Home() {
 				<div className="grid max-w-screen-xl px-4 mx-auto lg:gap-8 lg:grid-cols-12 h-full pt-4">
 					<div className="place-self-center lg:col-span-6 py-8 lg:py-16">
 						<h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none max-lg:text-center lg:text-5xl xl:text-6xl">
-							Unlock Your Potential with Premier Learning
-							Solutions
+							Unlock Your Potential with{' '}
+							<span className="text-primary">
+								Premier Learning Solutions
+							</span>
 						</h1>
 						<p className="max-w-2xl max-lg:text-center mb-6 font-light text-black/80 lg:mb-8 md:text-lg lg:text-xl">
 							Discover Courses or Become an Educator: Your Journey
