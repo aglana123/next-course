@@ -9,57 +9,58 @@ import toast from 'react-hot-toast';
 import { Button } from '@/components/ui/button';
 
 interface CourseProgressButtonProps {
-	chapterId: string;
-	courseId: string;
-	slug: string;
-	isCompleted?: boolean;
-	nextChapterId?: string;
+  chapterId: string;
+  courseId: string;
+  slug: string;
+  isCompleted?: boolean;
+  nextChapterId?: string;
 }
 
 export const CourseProgressButton = ({
-	chapterId,
-	courseId,
-	slug,
-	isCompleted,
-	nextChapterId,
+  chapterId,
+  courseId,
+  slug,
+  isCompleted,
+  nextChapterId
 }: CourseProgressButtonProps) => {
-	const router = useRouter();
-	const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
-	const onClick = async () => {
-		try {
-			setIsLoading(true);
+  const onClick = async () => {
+    try {
+      setIsLoading(true);
 
-			await axios.put(
-				`/api/courses/${courseId}/chapters/${chapterId}/progress`,
-				{
-					isCompleted: !isCompleted,
-				}
-			);
-			if (!isCompleted && nextChapterId) {
-				router.push(`/course/${slug}/chapters/${nextChapterId}`);
-			}
+      await axios.put(
+        `/api/courses/${courseId}/chapters/${chapterId}/progress`,
+        {
+          isCompleted: !isCompleted
+        }
+      );
+      if (!isCompleted && nextChapterId) {
+        router.push(`/course/${slug}/chapters/${nextChapterId}`);
+      }
 
-			toast.success('Progress updated');
-			router.refresh();
-		} catch {
-			toast.error('Something went wrong');
-		} finally {
-			setIsLoading(false);
-		}
-	};
+      toast.success('Progress updated');
+      router.refresh();
+    } catch {
+      toast.error('Something went wrong');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-	const Icon = isCompleted ? XCircle : CheckCircle;
+  const Icon = isCompleted ? XCircle : CheckCircle;
 
-	return (
-		<Button
-			onClick={onClick}
-			disabled={isLoading}
-			type="button"
-			variant={isCompleted ? 'secondary' : 'default'}
-			className="w-full md:w-auto">
-			{isCompleted ? 'Completed' : 'Mark as complete'}
-			<Icon className="h-4 w-4 ml-2" />
-		</Button>
-	);
+  return (
+    <Button
+      onClick={onClick}
+      disabled={isLoading}
+      type="button"
+      variant={isCompleted ? 'secondary' : 'default'}
+      className="w-full md:w-auto"
+    >
+      {isCompleted ? 'Completed' : 'Mark as complete'}
+      <Icon className="h-4 w-4 ml-2" />
+    </Button>
+  );
 };
