@@ -1,11 +1,9 @@
-'use client';
-
+import { categoriesAsset } from '@/asset/categories';
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from '@/components/ui/popover';
-import db from '@/lib/db';
 import { Circle } from 'lucide-react';
 import Link from 'next/link';
 
@@ -20,7 +18,7 @@ const CategoriesPopUp = () => {
 				sideOffset={15}
 				hideWhenDetached={true}
 				className="flex flex-col w-[245px]">
-				{/* {courseCategories.map((category) => (
+				{categoriesAsset.map((category) => (
 					<Link
 						href={''}
 						key={category.slug}>
@@ -29,7 +27,7 @@ const CategoriesPopUp = () => {
 							{category.name}
 						</div>
 					</Link>
-				))} */}
+				))}
 			</PopoverContent>
 		</Popover>
 	);

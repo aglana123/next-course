@@ -17,32 +17,11 @@ export const getChapter = async ({
 			where: {
 				is_published: true,
 				slug: courseSlug,
-				OR: [
-					{
-						public_access: 'Public',
-					},
-					{
-						AND: [
-							{ public_access: 'Private' },
-							{
-								OR: [
-									{ author_id: userId },
-									{
-										AccessPrivateCourses: {
-											some: { userId: userId },
-										},
-									},
-								],
-							},
-						],
-					},
-				],
 			},
 		});
 
 		const chapter = await db.chapter.findUnique({
 			where: {
-				
 				id: chapterId,
 				is_published: true,
 			},
@@ -65,19 +44,20 @@ export const getChapter = async ({
 			},
 		});
 
-		// const userProgress = await db.userProgress.findUnique({
-		// 	where: {
-		// 		userId_chapterId: {
-		// 			userId,
-		// 			chapterId,
-		// 		},
-		// 	},
-		// });
+		const userProgress = await db.userProgress.findUnique({
+			where: {
+				userId_chapterId: {
+					userId,
+					chapterId,
+				},
+			},
+		});
 
 		return {
 			chapter,
 			course,
 			nextChapter,
+			userProgress,
 		};
 	} catch (error) {
 		console.log('[GET_CHAPTER]', error);

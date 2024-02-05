@@ -1,48 +1,75 @@
 'use server';
 
 import db from '@/lib/db';
-import { Course, CoursesLevel, PublicAccess } from '@prisma/client';
+import { Course, Category, User } from '@prisma/client';
 
-export interface searchProductsProps {
-	slug?: string;
-	level?: CoursesLevel;
-	category_id?: string;
-	public_access?: PublicAccess;
+export interface searchCoursesProps {
+	slug: string;
 }
 
-const searchProducts = async (
-	params: searchProductsProps
-): Promise<Course[]> => {
+export interface SearchResults {
+	searchCourses: Course[] | null;
+	searchCategories: Category[] | null;
+	searchTeachers: User[] | null;
+}
+
+const searchCourses = async (
+	params: searchCoursesProps
+): Promise<SearchResults> => {
 	try {
-		const { slug, level, category_id, public_access } = params;
-		let query: searchProductsProps = {};
+		const { slug } = params;
 
-		if (slug) {
-			query.slug = slug;
-		}
-
-		if (level) {
-			query.level = level;
-		}
-		if (category_id) {
-			query.category_id = category_id;
-		}
-		if (public_access) {
-			query.public_access = public_access;
-		}
-
-		const filteredProducts = await db.course.findMany({
-			where: query,
+		const searchCoursesPromise = db.course.findMany({
+			where: {
+				title: {
+					contains: slug,
+					mode: 'insensitive',
+				},
+				is_published: true,
+			},
 			orderBy: {
 				createdAt: 'desc',
 			},
-			take: 10,
+			take: 4,
 		});
 
-		return filteredProducts;
+		const searchCategoriesPromise = db.category.findMany({
+			where: {
+				name: {
+					contains: slug,
+					mode: 'insensitive',
+				},
+			},
+		});
+
+		const searchTeachersPromise = db.user.findMany({
+			where: {
+				name: {
+					contains: slug,
+					mode: 'insensitive',
+				},
+				role: 'TEACHER',
+			},
+		});
+
+		const [searchCourses, searchCategories, searchTeachers] =
+			await Promise.all([
+				searchCoursesPromise,
+				searchCategoriesPromise,
+				searchTeachersPromise,
+			]);
+
+		console.log(searchCourses);
+
+		return { searchCourses, searchCategories, searchTeachers };
 	} catch (error: any) {
-		throw new Error(error);
+		console.log('[SEARCH_COURSES]', error);
+		return {
+			searchCourses: null,
+			searchCategories: null,
+			searchTeachers: null,
+		};
 	}
 };
 
-export default searchProducts;
+export default searchCourses;

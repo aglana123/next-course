@@ -1,21 +1,33 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { PublicAccess } from '@prisma/client';
+import useWishlist from '@/hooks/use-wishlist';
+import { Course, PublicAccess } from '@prisma/client';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 const ActionSection = ({
 	courseId,
 	publicAccess,
+	course,
 }: {
 	courseId: string;
 	publicAccess: PublicAccess;
+	course: Course;
 }) => {
+	const { data: session } = useSession();
+	const { addItem } = useWishlist();
+	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 	const handleEnrollCourse = async () => {
 		try {
+			if (!session?.user) {
+				return router.push('/sign-in');
+			}
+			setIsLoading(true);
 			const enrollCourse = await axios.post(
 				`/api/courses/${courseId}/enroll`
 			);
@@ -25,13 +37,20 @@ const ActionSection = ({
 		} catch (error) {
 			console.log(error);
 			toast.error('Something went wrong');
+		} finally {
+			setIsLoading(false);
 		}
+	};
+
+	const AddToWishlist = () => {
+		addItem(course);
 	};
 	return (
 		<div className=" py-4 w-full flex flex-col gap-4 justify-center ">
 			<div className="flex flex-col gap-4 justify-center">
 				{publicAccess === 'Public' ? (
 					<Button
+						isLoading={isLoading}
 						onClick={handleEnrollCourse}
 						variant={'ghost'}
 						className="h-fit font-medium py-4 text-lg  rounded-md bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90">
@@ -40,6 +59,7 @@ const ActionSection = ({
 				) : (
 					<>
 						<Button
+							isLoading={isLoading}
 							onClick={handleEnrollCourse}
 							variant={'ghost'}
 							className="h-fit font-medium py-4 text-lg  rounded-md bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90">
@@ -48,6 +68,8 @@ const ActionSection = ({
 					</>
 				)}
 				<Button
+					isLoading={isLoading}
+					onClick={AddToWishlist}
 					variant={'secondary'}
 					className="h-fit py-4 text-lg px-6 font-medium rounded-md">
 					Add to Wishlist

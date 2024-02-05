@@ -5,7 +5,9 @@ import Link from 'next/link';
 const MainLogo = () => {
 	return (
 		<div className="hidden md:flex">
-			<Link href={'/'}>
+			<Link
+				aria-label="Home-Page"
+				href={'/'}>
 				<svg
 					id="logo-52"
 					width="170"

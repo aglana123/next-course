@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 interface CourseProgressButtonProps {
 	chapterId: string;
 	courseId: string;
+	slug: string;
 	isCompleted?: boolean;
 	nextChapterId?: string;
 }
@@ -18,6 +19,7 @@ interface CourseProgressButtonProps {
 export const CourseProgressButton = ({
 	chapterId,
 	courseId,
+	slug,
 	isCompleted,
 	nextChapterId,
 }: CourseProgressButtonProps) => {
@@ -35,7 +37,7 @@ export const CourseProgressButton = ({
 				}
 			);
 			if (!isCompleted && nextChapterId) {
-				router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+				router.push(`/course/${slug}/chapters/${nextChapterId}`);
 			}
 
 			toast.success('Progress updated');
@@ -54,9 +56,9 @@ export const CourseProgressButton = ({
 			onClick={onClick}
 			disabled={isLoading}
 			type="button"
-			variant={isCompleted ? 'outline' : 'default'}
+			variant={isCompleted ? 'secondary' : 'default'}
 			className="w-full md:w-auto">
-			{isCompleted ? 'Not completed' : 'Mark as complete'}
+			{isCompleted ? 'Completed' : 'Mark as complete'}
 			<Icon className="h-4 w-4 ml-2" />
 		</Button>
 	);

@@ -17,7 +17,7 @@ const ChapterIdPage = async ({
 		return redirect('/');
 	}
 
-	const { chapter, course, nextChapter } = await getChapter({
+	const { chapter, course, nextChapter, userProgress } = await getChapter({
 		chapterId: params.chapterId,
 		courseSlug: params.courseSlug,
 		userId: session.user.id,
@@ -38,10 +38,11 @@ const ChapterIdPage = async ({
 					</h2>
 
 					<CourseProgressButton
+						slug={course.slug}
 						chapterId={params.chapterId}
 						courseId={course.id}
 						nextChapterId={nextChapter?.id}
-						isCompleted={true}
+						isCompleted={userProgress?.isCompleted}
 					/>
 				</div>
 				<Separator />

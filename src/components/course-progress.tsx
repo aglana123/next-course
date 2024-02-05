@@ -9,10 +9,10 @@ export const CourseProgress = ({ value }: CourseProgressProps) => {
 	return (
 		<div>
 			<Progress
-				className="h-2"
+				className="h-2 bg-primary/30"
 				value={value}
 			/>
-			<p className={cn('font-medium mt-2 text-sky-700')}>
+			<p className={cn('font-medium mt-2 text-primary')}>
 				{Math.round(value)}% Complete
 			</p>
 		</div>
