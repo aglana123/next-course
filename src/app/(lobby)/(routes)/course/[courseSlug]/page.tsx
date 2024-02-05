@@ -37,6 +37,7 @@ const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
 		return redirect('/');
 	}
 
+	console.log(course);
 	const studentsCount = course.enrolled_courses.length ?? 0;
 	const courseCount = course.author.createdCourses.length ?? 0;
 	const chapterCount = course.chapters.length ?? 0;
@@ -63,6 +64,7 @@ const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
 							studentsCount={studentsCount}
 						/>
 						<ActionSection
+							course={course}
 							courseId={course.id}
 							publicAccess={course.public_access}
 						/>
@@ -95,6 +97,7 @@ const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
 						studentsCount={studentsCount}
 					/>
 					<ActionSection
+						course={course}
 						courseId={course.id}
 						publicAccess={course.public_access}
 					/>
