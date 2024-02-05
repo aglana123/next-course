@@ -13,6 +13,9 @@ const VideoPlayer: FC<ReactPlayerProps> = ({ url, ...props }) => {
 	return isClient ? (
 		<div className="relative aspect-video">
 			<ReactPlayer
+				onEnded={() => console.log('halo')}
+				onProgress={(state) => console.log(state)}
+				onDuration={(duration) => console.log(duration)}
 				className="absolute w-full h-full aspect-video top-0 left-0"
 				width="100%"
 				height="100%"
@@ -21,9 +24,7 @@ const VideoPlayer: FC<ReactPlayerProps> = ({ url, ...props }) => {
 				{...props}
 			/>
 		</div>
-	) : (
-		''
-	);
+	) : null;
 };
 
 export default VideoPlayer;
