@@ -37,10 +37,10 @@ const CourseCard: React.FC<CourseCardProps> = ({
           </div>
         </CardHeader>
         <hr />
-        <CardContent className="flex flex-col py-4 px-6 h-full">
+        <CardContent className="flex flex-col py-6 px-4 h-full">
           <h3 className="line-claps-with-ellipsis font-semibold">{title}</h3>
           <div className="flex flex-col mb-2">
-            <p className="line-claps-with-ellipsis ">{desc}</p>
+            <p className="line-claps-with-ellipsis">{desc}</p>
             <small className="text-black/80 text-xs">By {teacher}</small>
           </div>
           {course_access === 'Public' ? (
