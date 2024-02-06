@@ -1,16 +1,8 @@
-'use client';
+import FeaturedCourses from './featured-courses';
+import { Suspense } from 'react';
+import CoursesCardSkeleton from '@/components/skeleton/courses-card-skeleton';
 
-import CoursesSection from '@/components/CoursesSection';
-import { Course } from '@prisma/client';
-import { FC } from 'react';
-
-type FeaturedCoursesSectionProps = {
-  courses: (Course & { author: { name: string } })[];
-};
-
-const FeaturedCoursesSection: FC<FeaturedCoursesSectionProps> = ({
-  courses
-}) => {
+const FeaturedCoursesSection = async () => {
   return (
     <div className="flex flex-col items-center max-w-screen-xl px-4 mx-auto h-full">
       <div className="mb-8 max-w-sm text-center">
@@ -19,8 +11,9 @@ const FeaturedCoursesSection: FC<FeaturedCoursesSectionProps> = ({
         </h2>
         <p>Browse through the course categories that catch your eye.</p>
       </div>
-
-      <CoursesSection courses={courses} />
+      <Suspense fallback={<CoursesCardSkeleton />}>
+        <FeaturedCourses />
+      </Suspense>
     </div>
   );
 };

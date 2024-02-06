@@ -20,7 +20,7 @@ const CategoriesPopUp = () => {
         className="flex flex-col w-[245px]"
       >
         {categoriesAsset.map((category) => (
-          <Link href={''} key={category.slug}>
+          <Link href={`/courses?category=${category.slug}`} key={category.slug}>
             <div className="group flex items-center gap-2 hover:text-primary h-full py-2">
               <Circle className="group-hover:fill-primary stroke-none w-3 h-3" />
               {category.name}

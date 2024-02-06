@@ -16,17 +16,18 @@ const FeaturedCategoriesSection = () => {
         {categoriesAsset.map((category) => (
           <div
             key={category.slug}
-            className="flex z-10 flex-col items-center py-8 px-6 gap-4 bg-white rounded-md shadow-sm shadow-black/30 max-w-md"
+            className="flex flex-col items-center py-8 px-6 gap-4 bg-white rounded-md shadow-md shadow-black/30 "
           >
             <Image
+              className="animate-up-down"
               src={category.img}
               alt={`image category of ${category.slug}`}
               width={100}
               height={100}
             />
             <div className="w-full text-center flex flex-col gap-2">
-              <h3>{category.name}</h3>
-              <p>{category.description}</p>
+              <h3 className="font-semibold">{category.name}</h3>
+              <p className="max-w-sm">{category.description}</p>
             </div>
           </div>
         ))}

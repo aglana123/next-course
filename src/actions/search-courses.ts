@@ -1,17 +1,15 @@
 'use server';
 
 import db from '@/lib/db';
-import { Course, Category, User } from '@prisma/client';
+import { Course } from '@prisma/client';
 
 export interface searchCoursesProps {
   slug: string;
 }
 
-export interface SearchResults {
-  searchCourses: Course[] | null;
-  searchCategories: Category[] | null;
-  searchTeachers: User[] | null;
-}
+export type SearchResults =
+  | (Course & { category: { name: string } | null })[]
+  | null;
 
 const searchCourses = async (
   params: searchCoursesProps
@@ -19,7 +17,7 @@ const searchCourses = async (
   try {
     const { slug } = params;
 
-    const searchCoursesPromise = db.course.findMany({
+    const searchCourses = await db.course.findMany({
       where: {
         title: {
           contains: slug,
@@ -27,45 +25,23 @@ const searchCourses = async (
         },
         is_published: true
       },
+      include: {
+        category: {
+          select: {
+            name: true
+          }
+        }
+      },
       orderBy: {
         createdAt: 'desc'
       },
-      take: 4
+      take: 10
     });
 
-    const searchCategoriesPromise = db.category.findMany({
-      where: {
-        name: {
-          contains: slug,
-          mode: 'insensitive'
-        }
-      }
-    });
-
-    const searchTeachersPromise = db.user.findMany({
-      where: {
-        name: {
-          contains: slug,
-          mode: 'insensitive'
-        },
-        role: 'TEACHER'
-      }
-    });
-
-    const [searchCourses, searchCategories, searchTeachers] = await Promise.all(
-      [searchCoursesPromise, searchCategoriesPromise, searchTeachersPromise]
-    );
-
-    console.log(searchCourses);
-
-    return { searchCourses, searchCategories, searchTeachers };
+    return searchCourses;
   } catch (error: any) {
     console.log('[SEARCH_COURSES]', error);
-    return {
-      searchCourses: null,
-      searchCategories: null,
-      searchTeachers: null
-    };
+    return null;
   }
 };
 
