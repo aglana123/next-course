@@ -44,7 +44,7 @@ const HomePageAction: FC<HomePageActionProps> = ({ user }) => {
       <Link href="/courses">
         <Button
           variant="secondary"
-          className="rounded-md px-5 py-3 text-base font-medium h-fit"
+          className="rounded-md px-5 py-3 text-base font-medium h-fit bg-white"
         >
           Enroll Courses
         </Button>
