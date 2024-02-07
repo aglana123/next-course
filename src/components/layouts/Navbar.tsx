@@ -1,11 +1,11 @@
 'use client';
-
-import SearchBar from '@/components/layouts/SearchBar';
-import MainLogo from '@/components/layouts/MainLogo';
-import NavMenu from '@/components/layouts/NavMenu';
-import HumburgerMenu from '@/components/layouts/HumburgerMenu';
-import CategoriesPopUp from './CategoriesPopUp';
+import MainLogo from '@/components/layouts/main-logo';
+import NavMenu from '@/components/layouts/navbar-menu';
+import HumburgerMenu from '@/components/layouts/humburger-menu';
+import CategoriesPopUp from './categories-popup';
 import { User } from 'next-auth';
+import SearchBarDesktop from '@/components/layouts/search-bar/search-bar-desktop';
+import SearchBarMobile from './search-bar/search-bar-mobile';
 
 const Navbar = ({ user }: { user?: User }) => {
   return (
@@ -19,10 +19,13 @@ const Navbar = ({ user }: { user?: User }) => {
           {/* center */}
           <div className="w-full hidden lg:flex gap-4 xl:mx-4">
             <CategoriesPopUp />
-            <SearchBar />
+            <SearchBarDesktop />
           </div>
           {/* right */}
-          <NavMenu user={user} />
+          <div className="flex items-center gap-4">
+            <SearchBarMobile />
+            <NavMenu user={user} />
+          </div>
         </nav>
       </header>
     </>
