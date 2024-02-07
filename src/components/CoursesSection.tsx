@@ -1,17 +1,38 @@
 'use client';
 
+import searchFilterCourses from '@/actions/search-filter-courses';
 import CourseCard from '@/components/cards/CourseCard';
-import { Course } from '@prisma/client';
+import { CoursePageParams } from '@/types/course-page';
+import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
+import CoursesCardSkeleton from './skeleton/courses-card-skeleton';
 
-type CoursesSectionProps = {
-  courses: (Course & { author: { name: string } })[];
-};
+const CoursesSection: FC<CoursePageParams> = ({ searchParams }) => {
+  const {
+    data: courses,
+    isError,
+    isLoading,
+    error
+  } = useQuery({
+    queryKey: ['courses', searchParams],
+    queryFn: async () => {
+      const data = await searchFilterCourses(searchParams);
+      return data;
+    }
+  });
 
-const CoursesSection: FC<CoursesSectionProps> = ({ courses }) => {
+  console.log(isError);
+  console.log(error);
+
+  if (isLoading) {
+    return <CoursesCardSkeleton />;
+  }
+  if (error) {
+    return <h1>Error</h1>;
+  }
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 place-items-stretch">
-      {courses.map((course) => (
+      {courses?.map((course) => (
         <CourseCard
           slug={course.slug}
           key={course.id}
