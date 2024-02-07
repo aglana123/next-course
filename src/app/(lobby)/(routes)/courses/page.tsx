@@ -1,76 +1,36 @@
 import ContainerCourses from './_components/ContainerCourses';
-
 import CoursesSection from '@/components/CoursesSection';
-import db from '@/lib/db';
-import { FC } from 'react';
+import { FC, Suspense } from 'react';
 import { CoursePageParams } from '@/types/course-page';
-import { CoursesLevel, PublicAccess } from '@prisma/client';
-import { firstLetterToUpper } from '@/helpers/firstLetterToUpper';
 import SortPopUp from './_components/SortPopUp';
-
-type queryProps = {
-  title?: { contains: string; mode: 'insensitive' };
-  is_published: boolean;
-  category_id?: string;
-  level?: CoursesLevel;
-  public_access?: PublicAccess;
-};
+import searchFilterCourses from '@/actions/search-filter-courses';
+import {
+  QueryClient,
+  dehydrate,
+  HydrationBoundary
+} from '@tanstack/react-query';
+import CoursesCardSkeleton from '@/components/skeleton/courses-card-skeleton';
+import SearchResultMenu from './_components/search-result-menu';
 
 const CoursesPage: FC<CoursePageParams> = async ({ searchParams }) => {
-  const { q: slug, category, level, access, sort } = searchParams;
-
-  let query: queryProps = { is_published: true };
-  let sorting: { createdAt?: 'desc' | 'asc' } = {};
-  if (slug) {
-    query.title = {
-      contains: slug,
-      mode: 'insensitive'
-    };
-  }
-  if (category) {
-    query.category_id = category;
-  }
-
-  if (level) {
-    const level1 = firstLetterToUpper(level) as CoursesLevel;
-    query.level = level1;
-  }
-
-  if (access) {
-    const acces1 = firstLetterToUpper(access) as PublicAccess;
-    query.public_access = acces1;
-  }
-
-  if (sort && sort !== 'relevance') {
-    sorting.createdAt = 'desc';
-  }
-  const categories = await db.category.findMany();
-  const courses = await db.course.findMany({
-    where: query,
-    include: {
-      author: {
-        select: {
-          name: true
-        }
-      }
-    },
-    orderBy: sorting
+  const { q, category } = searchParams;
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ['courses', { q, category }],
+    queryFn: async () => {
+      const data = await searchFilterCourses(searchParams);
+      return data;
+    }
   });
-
-  if (!categories || !courses) {
-    throw Error('Failed to fetching data. Please reload page and try again');
-  }
-
+  console.log(queryClient);
+  const dehydratedState = dehydrate(queryClient);
   return (
-    <ContainerCourses categories={categories}>
-      <div className="flex justify-between items-center mb-4">
-        <p className="font-medium">
-          <strong>{courses.length || 0} Courses</strong> Found for{' '}
-          {`"${slug || ''}"`}
-        </p>
-        <SortPopUp />
-      </div>
-      <CoursesSection courses={courses} />
+    <ContainerCourses>
+      <HydrationBoundary state={dehydratedState}>
+        <SearchResultMenu searchParams={searchParams} />
+
+        <CoursesSection searchParams={searchParams} />
+      </HydrationBoundary>
     </ContainerCourses>
   );
 };
