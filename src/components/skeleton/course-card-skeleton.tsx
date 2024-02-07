@@ -4,7 +4,7 @@ import { Skeleton } from '../ui/skeleton';
 
 const CourseCardSkeleton = () => {
   return (
-    <Card className="rounded-md overflow-hidden h-full">
+    <Card className="rounded-md overflow-hidden h-full border border-input">
       <CardHeader className="p-0">
         <AspectRatio ratio={16 / 9}>
           <Skeleton className="w-full h-full aspect-video object-cover" />
