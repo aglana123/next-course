@@ -44,9 +44,9 @@ const CourseFacilitiesSection = ({
   ];
 
   return (
-    <div className="flex flex-col px-4 md:px-6 mt-4 pt-4 md:pt-0 bg-white">
-      <h2>Kursus Ini Meliputi</h2>
-      <div className="flex flex-wrap gap-2 mt-2">
+    <div className="flex flex-col">
+      <h2 className="mb-2">Kursus Ini Meliputi</h2>
+      <div className="flex flex-wrap gap-2 ">
         {courseFacilities.map((facility) => (
           <IconText
             key={facility.text}
