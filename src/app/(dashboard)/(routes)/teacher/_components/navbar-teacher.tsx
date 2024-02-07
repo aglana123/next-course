@@ -1,7 +1,7 @@
-import HumburgerMenu from '@/components/layouts/HumburgerMenu';
-import MainLogo from '@/components/layouts/MainLogo';
-import UserAvatar from '@/components/layouts/UserAvatar';
-import UserMenuNav from '@/components/layouts/UserMenuNav';
+import HumburgerMenu from '@/components/layouts/humburger-menu';
+import MainLogo from '@/components/layouts/main-logo';
+import UserAvatar from '@/components/layouts/user-avatar';
+import UserMenuNav from '@/components/layouts/user-menu-nav';
 import { User } from 'next-auth';
 
 const NavbarTeacher = ({ user }: { user: User }) => {
