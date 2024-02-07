@@ -1,3 +1,5 @@
+'use server';
+
 import { firstLetterToUpper } from '@/helpers/firstLetterToUpper';
 import db from '@/lib/db';
 import { Course, CoursesLevel, PublicAccess } from '@prisma/client';
@@ -56,8 +58,8 @@ const searchFilterCourses = async (searchParams: SearchParamsProps) => {
 
     return courses as CoursesReturn;
   } catch (error) {
-    console.error('Error fetching courses:', error);
-    throw error;
+    console.log('Error fetching courses:', error);
+    throw error as Error;
   }
 };
 
