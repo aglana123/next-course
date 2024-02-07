@@ -23,7 +23,7 @@ const HeroHome = async () => {
       </div>
       <div className="relative h-fit w-fit lg:h-[558px] max-lg:my-8 lg:col-span-6 max-lg:row-start-1 place-self-center flex justify-center rounded-full lg:rounded-none">
         <Image
-          className="static object-cover h-full sm:w-full max-lg:aspect-square max-lg:rounded-full max-lg:overflow-hidden max-lg:border border-input w-64 max-w-sm lg:max-w-2xl overflow-visible saturate-[110%] drop-shadow-xl"
+          className="object-cover h-full sm:w-full max-lg:aspect-square max-lg:rounded-full max-lg:overflow-hidden max-lg:border border-input w-64 max-w-sm lg:max-w-2xl overflow-visible drop-shadow-xl"
           height={670}
           width={718}
           src="/landing-page/pngwing.com (18).png"

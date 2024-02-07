@@ -1,11 +1,13 @@
 import { create } from 'zustand';
 
 type ConfettiStore = {
-	isOpen: boolean;
-	onToggle: () => void;
+  isOpen: boolean;
+  isLoading: boolean;
+  onToggle: () => void;
 };
 
 export const useContainerFilter = create<ConfettiStore>((set) => ({
-	isOpen: false,
-	onToggle: () => set((state) => ({ isOpen: !state.isOpen })),
+  isOpen: false,
+  isLoading: false,
+  onToggle: () => set((state) => ({ isOpen: !state.isOpen }))
 }));

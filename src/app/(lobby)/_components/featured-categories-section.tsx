@@ -1,6 +1,8 @@
 'use client';
+
 import { categoriesAsset } from '@/asset/categories';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const FeaturedCategoriesSection = () => {
   return (
@@ -14,22 +16,23 @@ const FeaturedCategoriesSection = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 place-items-stretch">
         {categoriesAsset.map((category) => (
-          <div
-            key={category.slug}
-            className="flex flex-col items-center py-8 px-6 gap-4 bg-white rounded-md shadow-md shadow-black/30 "
-          >
-            <Image
-              className="animate-up-down"
-              src={category.img}
-              alt={`image category of ${category.slug}`}
-              width={100}
-              height={100}
-            />
-            <div className="w-full text-center flex flex-col gap-2">
-              <h3 className="font-semibold">{category.name}</h3>
-              <p className="max-w-sm">{category.description}</p>
+          <Link key={category.slug} href={`/courses?category${category.slug}`}>
+            <div className="group/category flex flex-col items-center py-8 px-6 gap-4 bg-white rounded-md shadow-md shadow-black/30 ">
+              <Image
+                className="animate-up-down"
+                src={category.img}
+                alt={`image category of ${category.slug}`}
+                width={100}
+                height={100}
+              />
+              <div className="w-full text-center flex flex-col gap-2">
+                <h3 className="font-semibold group-hover/category:text-primary">
+                  {category.name}
+                </h3>
+                <p className="max-w-sm">{category.description}</p>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

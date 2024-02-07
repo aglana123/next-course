@@ -15,8 +15,8 @@ import {
   LogOutIcon,
   ShoppingBag
 } from 'lucide-react';
-import UserAvatar from './UserAvatar';
-import UserMenuList from './UserMenuList';
+import UserAvatar from './user-avatar';
+import UserMenuList from './user-menu-list';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { ReactNode } from 'react';

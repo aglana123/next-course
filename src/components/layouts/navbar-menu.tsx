@@ -2,19 +2,16 @@
 
 import { Heart, SearchIcon } from 'lucide-react';
 
-import NavMessages from './NavMessages';
+import NavMessages from './navbar-messages';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { User } from 'next-auth';
-import UserMenuNav from './UserMenuNav';
-import UserAvatar from './UserAvatar';
+import UserMenuNav from './user-menu-nav';
+import UserAvatar from './user-avatar';
 
 const NavMenu = ({ user }: { user?: User }) => {
   return (
-    <div className="flex items-center gap-4">
-      <Button variant="outline" className="lg:hidden h-fit w-fit p-2">
-        <SearchIcon />
-      </Button>
+    <>
       {user ? (
         <>
           <Link className="max-lg:hidden" href={'/courses'}>
@@ -44,7 +41,7 @@ const NavMenu = ({ user }: { user?: User }) => {
           </Link>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

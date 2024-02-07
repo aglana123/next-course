@@ -1,113 +1,51 @@
-import db from '@/lib/db';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import CourseInfoSection from './_components/course-info-section';
 import CourseFacilitiesSection from './_components/course-facilities-section';
-import ActionSection from './_components/action-section';
 import AuthorInfoSection from './_components/author-info-section';
+import ChaptersList from './_components/chapters-list';
+import { MobileCourseSection } from './_components/mobile-course-section';
+import { DesktopCourseSection } from './_components/desktop-course-section';
+import { getCourse } from '@/actions/get-course';
 
 const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
-  const course = await db.course.findUnique({
-    where: {
-      slug: params.courseSlug,
-      is_published: true
-    },
-    include: {
-      chapters: {
-        where: {
-          is_published: true
-        },
-        orderBy: {
-          position: 'asc'
-        }
-      },
-      author: {
-        select: {
-          image: true,
-          name: true,
-          id: true,
-          createdCourses: true
-        }
-      },
-      enrolled_courses: true
-    }
-  });
+  const course = await getCourse(params.courseSlug);
 
   if (!course) {
     return redirect('/');
   }
 
-  console.log(course);
-  const studentsCount = course.enrolled_courses.length ?? 0;
-  const courseCount = course.author.createdCourses.length ?? 0;
-  const chapterCount = course.chapters.length ?? 0;
+  const { enrolled_courses: enrolledCourses, author, chapters } = course;
+  const studentsCount = enrolledCourses.length ?? 0;
+  const courseCount = author.createdCourses.length ?? 0;
+  const chapterCount = chapters.length ?? 0;
 
   return (
-    <div className="container px-0 md:px-4 xl:px-16 py-4 mt-[64px] lg:mt-[80px] w-full">
-      <div className="flex w-full gap-4">
-        <div className="w-full lg:w-7/12 xl:w-8/12 md:bg-white rounded-md overflow-hidden">
-          <div className="relative aspect-video">
-            <Image
-              className="object-cover aspect-video"
-              src={course.imageUrl!}
-              alt={`hero image of ${course.title} course`}
-              fill
-              quality={80}
-            />
-          </div>
-          <section className="flex lg:hidden flex-col rounded-md overflow-hidden px-4 md:px-6 pt-6 lg:py-8 gap-4 h-fit bg-white">
-            <CourseInfoSection
-              title={course.title}
-              description={course.description!}
-              author_name={course.author.name}
-              course_updateAt={course.updatedAt}
-              studentsCount={studentsCount}
-            />
-            <ActionSection
-              course={course}
-              courseId={course.id}
-              publicAccess={course.public_access}
-            />
-          </section>
-
+    <div className="container px-0 md:px-4 xl:px-16 py-4 mt-[64px] lg:mt-[80px] w-full flex gap-4">
+      <div className="w-full lg:w-7/12 xl:w-8/12 lg:bg-white rounded-md overflow-hidden">
+        <div className="relative aspect-video">
+          <Image
+            className="object-cover aspect-video"
+            src={course.imageUrl!}
+            alt={`hero image of ${course.title} course`}
+            fill
+            sizes="(max-width: 400px) 100vw, (max-width: 700px) 50vw, (max-width: 900px) 33vw, 450px"
+            quality={80}
+          />
+        </div>
+        <div className="flex flex-col gap-6 bg-white px-4 py-6">
+          <MobileCourseSection course={course} studentsCount={studentsCount} />
           <CourseFacilitiesSection chapterCount={chapterCount} />
-
-          <div className="flex flex-col px-4 md:px-6 py-6 bg-white">
-            <h2 className="mb-1">Konten Kursus</h2>
-            {course.chapters.map((chapter) => (
-              <div
-                key={chapter.id}
-                className="flex border border-input p-4 font-medium"
-              >
-                {chapter.title}
-              </div>
-            ))}
-          </div>
+          <ChaptersList chapters={chapters} />
           <AuthorInfoSection
-            user={course.author}
-            name={course.author.name}
+            user={author}
+            name={author.name}
             courseCount={courseCount}
           />
         </div>
-        <section className="w-5/12 xl:w-4/12 hidden lg:flex flex-col bg-white rounded-md overflow-hidden px-6 py-8 gap-2 h-fit">
-          <CourseInfoSection
-            title={course.title}
-            description={course.description!}
-            author_name={course.author.name}
-            course_updateAt={course.updatedAt}
-            studentsCount={studentsCount}
-          />
-          <ActionSection
-            course={course}
-            courseId={course.id}
-            publicAccess={course.public_access}
-          />
-        </section>
       </div>
+      <DesktopCourseSection course={course} studentsCount={studentsCount} />
     </div>
   );
 };
 
 export default CourseIdPage;
-
-//redirect(`/course/${course.slug}/chapters/${course.chapters[0].id}`);

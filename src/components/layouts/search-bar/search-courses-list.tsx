@@ -22,7 +22,7 @@ const SearchCoursesList = ({
           height={50}
         />
         <div className="w-full">
-          <p className="text-medium group-hover/search:text-primary">{title}</p>
+          <p className="font-medium group-hover/search:text-primary">{title}</p>
           <small>{category_name}</small>
         </div>
       </div>

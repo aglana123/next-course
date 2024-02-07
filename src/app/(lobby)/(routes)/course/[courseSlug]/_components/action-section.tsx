@@ -51,7 +51,7 @@ const ActionSection = ({
             isLoading={isLoading}
             onClick={handleEnrollCourse}
             variant={'ghost'}
-            className="h-fit font-medium py-4 text-lg  rounded-md bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90"
+            className="h-fit font-medium py-4 text-lg rounded-md bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90"
           >
             Enroll Now
           </Button>
@@ -61,7 +61,7 @@ const ActionSection = ({
               isLoading={isLoading}
               onClick={handleEnrollCourse}
               variant={'ghost'}
-              className="h-fit font-medium py-4 text-lg  rounded-md bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90"
+              className="h-fit font-medium py-4 text-lg rounded-md bg-primary text-primary-foreground hover:text-primary-foreground hover:bg-primary/90"
             >
               Get Access
             </Button>

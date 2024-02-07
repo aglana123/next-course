@@ -1,23 +1,17 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { X } from 'lucide-react';
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode } from 'react';
 import SearchFilter from './SearchFilter';
-import { Category } from '@prisma/client';
 import FilterSidebar from './filter-sidebar';
 import { useContainerFilter } from '@/hooks/use-container-filter';
+import { categoriesAsset } from '@/asset/categories';
 
 type ContainerCoursesprops = {
   children: ReactNode;
-  categories: Category[];
 };
 
-const ContainerCourses: FC<ContainerCoursesprops> = ({
-  children,
-  categories
-}) => {
+const ContainerCourses: FC<ContainerCoursesprops> = ({ children }) => {
   const { isOpen } = useContainerFilter();
 
   return (
@@ -29,7 +23,7 @@ const ContainerCourses: FC<ContainerCoursesprops> = ({
     >
       <div className="container px-8 md:px-16 py-4 mt-[64px] lg:mt-[80px] w-full">
         <FilterSidebar>
-          <SearchFilter categories={categories} />
+          <SearchFilter categories={categoriesAsset} />
         </FilterSidebar>
         {children}
       </div>
