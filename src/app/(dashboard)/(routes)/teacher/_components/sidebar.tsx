@@ -1,4 +1,4 @@
-import MainLogo from '@/components/layouts/MainLogo';
+import MainLogo from '@/components/layouts/main-logo';
 import { BarChart3Icon, BookMarkedIcon } from 'lucide-react';
 
 const Sidebar = () => {

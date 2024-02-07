@@ -1,4 +1,4 @@
-import Navbar from '@/components/layouts/Navbar';
+import Navbar from '@/components/layouts/navbar';
 import { getAuthSession } from '@/lib/auth';
 
 type LobbyLayoutProps = {
