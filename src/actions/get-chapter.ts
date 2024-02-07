@@ -13,19 +13,20 @@ export const getChapter = async ({
   chapterId
 }: GetChapterProps) => {
   try {
-    const course = await db.course.findUnique({
-      where: {
-        is_published: true,
-        slug: courseSlug
-      }
-    });
-
-    const chapter = await db.chapter.findUnique({
-      where: {
-        id: chapterId,
-        is_published: true
-      }
-    });
+    const [course, chapter] = await Promise.all([
+      db.course.findUnique({
+        where: {
+          is_published: true,
+          slug: courseSlug
+        }
+      }),
+      db.chapter.findUnique({
+        where: {
+          id: chapterId,
+          is_published: true
+        }
+      })
+    ]);
 
     if (!chapter || !course) {
       throw new Error('Chapter or course not found');
