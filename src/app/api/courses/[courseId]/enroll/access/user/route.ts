@@ -23,11 +23,22 @@ export async function POST(
         public_access: 'Private',
         is_published: true,
         NOT: {
-          AccessPrivateCourses: {
-            some: {
-              userId: user.id
+          OR: [
+            {
+              AccessPrivateCourses: {
+                some: {
+                  userId: user.id
+                }
+              }
+            },
+            {
+              enrolled_courses: {
+                some: {
+                  userId: user.id
+                }
+              }
             }
-          }
+          ]
         }
       },
       select: {

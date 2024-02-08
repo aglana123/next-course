@@ -1,15 +1,13 @@
 import ContainerCourses from './_components/ContainerCourses';
-import CoursesSection from '@/components/CoursesSection';
-import { FC, Suspense } from 'react';
+import CoursesSection from '@/components/courses-section';
+import { FC } from 'react';
 import { CoursePageParams } from '@/types/course-page';
-import SortPopUp from './_components/SortPopUp';
 import searchFilterCourses from '@/actions/search-filter-courses';
 import {
   QueryClient,
   dehydrate,
   HydrationBoundary
 } from '@tanstack/react-query';
-import CoursesCardSkeleton from '@/components/skeleton/courses-card-skeleton';
 import SearchResultMenu from './_components/search-result-menu';
 
 const CoursesPage: FC<CoursePageParams> = async ({ searchParams }) => {
@@ -28,7 +26,6 @@ const CoursesPage: FC<CoursePageParams> = async ({ searchParams }) => {
     <ContainerCourses>
       <HydrationBoundary state={dehydratedState}>
         <SearchResultMenu searchParams={searchParams} />
-
         <CoursesSection searchParams={searchParams} />
       </HydrationBoundary>
     </ContainerCourses>

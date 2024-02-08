@@ -8,20 +8,21 @@ import { DesktopCourseSection } from './_components/desktop-course-section';
 import { getCourse } from '@/actions/get-course';
 
 const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
-  const course = await getCourse(params.courseSlug);
+  const data = await getCourse(params.courseSlug);
 
-  if (!course) {
+  if (!data?.course) {
     return redirect('/');
   }
 
-  const { enrolled_courses: enrolledCourses, author, chapters } = course;
-  const studentsCount = enrolledCourses.length ?? 0;
+  const course = data.course;
+
+  const { author, chapters } = course;
   const courseCount = author.createdCourses.length ?? 0;
   const chapterCount = chapters.length ?? 0;
 
   return (
     <div className="container px-0 md:px-4 xl:px-16 py-4 mt-[64px] lg:mt-[80px] w-full flex gap-4">
-      <div className="w-full lg:w-7/12 xl:w-8/12 lg:bg-white rounded-md overflow-hidden">
+      <div className="w-full lg:w-7/12 xl:w-8/12 lg:bg-white rounded-md overflow-hidden lg:shadow shadow-black/30">
         <div className="relative aspect-video">
           <Image
             className="object-cover aspect-video"
@@ -33,7 +34,10 @@ const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
           />
         </div>
         <div className="flex flex-col gap-6 bg-white px-4 py-6">
-          <MobileCourseSection course={course} studentsCount={studentsCount} />
+          <MobileCourseSection
+            course={data.course}
+            studentsCount={data.studentsCount}
+          />
           <CourseFacilitiesSection chapterCount={chapterCount} />
           <ChaptersList chapters={chapters} />
           <AuthorInfoSection
@@ -43,7 +47,10 @@ const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
           />
         </div>
       </div>
-      <DesktopCourseSection course={course} studentsCount={studentsCount} />
+      <DesktopCourseSection
+        course={data.course}
+        studentsCount={data.studentsCount}
+      />
     </div>
   );
 };

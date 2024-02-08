@@ -1,7 +1,7 @@
 'use client';
 
 import searchFilterCourses from '@/actions/search-filter-courses';
-import CourseCard from '@/components/cards/CourseCard';
+import CourseCard from '@/components/cards/course-card';
 import { CoursePageParams } from '@/types/course-page';
 import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
@@ -20,9 +20,6 @@ const CoursesSection: FC<CoursePageParams> = ({ searchParams }) => {
       return data;
     }
   });
-
-  console.log(isError);
-  console.log(error);
 
   if (isLoading) {
     return <CoursesCardSkeleton />;
