@@ -1,4 +1,4 @@
-import CourseCard from '@/components/cards/CourseCard';
+import CourseCard from '@/components/cards/course-card';
 import db from '@/lib/db';
 
 const FeaturedCourses = async () => {
