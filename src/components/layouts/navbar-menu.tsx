@@ -1,13 +1,12 @@
 'use client';
 
-import { Heart, SearchIcon } from 'lucide-react';
-
-import NavMessages from './navbar-messages';
 import Link from 'next/link';
-import { Button } from '../ui/button';
 import { User } from 'next-auth';
+import { Button } from '../ui/button';
 import UserMenuNav from './user-menu-nav';
 import UserAvatar from './user-avatar';
+import WishlistMenu from './wishlist-menu';
+import AlertNavbar from './alert-navbar';
 
 const NavMenu = ({ user }: { user?: User }) => {
   return (
@@ -19,8 +18,8 @@ const NavMenu = ({ user }: { user?: User }) => {
               My Courses
             </span>
           </Link>
-          <Heart className="fill-slate-500 stroke-none max-lg:hidden" />
-          <NavMessages />
+          <WishlistMenu />
+          <AlertNavbar userId={user.id} />
           <UserMenuNav>
             <UserAvatar
               user={{
