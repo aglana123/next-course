@@ -5,7 +5,6 @@ import { BookOpen, Heart, Trophy } from 'lucide-react';
 
 const HeroHome = async () => {
   const session = await getAuthSession();
-
   const user = session?.user ?? null;
   return (
     <div className="grid max-w-screen-xl px-4 mx-auto lg:gap-8 lg:grid-cols-12 h-full pt-4">
@@ -23,7 +22,7 @@ const HeroHome = async () => {
       </div>
       <div className="relative h-fit w-fit lg:h-[558px] max-lg:my-8 lg:col-span-6 max-lg:row-start-1 place-self-center flex justify-center rounded-full lg:rounded-none">
         <Image
-          className="object-cover h-full sm:w-full max-lg:aspect-square max-lg:rounded-full max-lg:overflow-hidden max-lg:border border-input w-64 max-w-sm lg:max-w-2xl overflow-visible drop-shadow-xl"
+          className="object-cover h-full sm:w-full max-lg:aspect-square max-lg:rounded-full max-lg:border border-input w-64 max-w-sm lg:max-w-2xl drop-shadow-xl"
           height={670}
           width={718}
           src="/landing-page/pngwing.com (18).png"
