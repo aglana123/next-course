@@ -37,7 +37,7 @@ const AuthActionSection = ({
       const enrollCourse = await axios.post(`/api/courses/${courseId}/enroll`);
       toast.success('Enroll Success');
       console.log(enrollCourse);
-      router.push('/my-courses');
+      router.push('/user/learning');
     } catch (error) {
       console.log(error);
       toast.error('Something went wrong');
