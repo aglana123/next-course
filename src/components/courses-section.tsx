@@ -10,7 +10,6 @@ import CoursesCardSkeleton from './skeleton/courses-card-skeleton';
 const CoursesSection: FC<CoursePageParams> = ({ searchParams }) => {
   const {
     data: courses,
-    isError,
     isLoading,
     error
   } = useQuery({
