@@ -1,5 +1,3 @@
-'use client';
-
 import { categoriesAsset } from '@/asset/categories';
 import Image from 'next/image';
 import Link from 'next/link';

@@ -6,7 +6,7 @@ import { User } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import toast from 'react-hot-toast';
 
 type HomePageActionProps = {
@@ -19,7 +19,7 @@ type HomePageActionProps = {
 };
 
 const HomePageAction: FC<HomePageActionProps> = ({ user }) => {
-  const { update, status } = useSession();
+  const { update } = useSession();
   const route = useRouter();
 
   const handleUpladeSession = async () => {
