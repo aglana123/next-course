@@ -1,25 +1,15 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { $Enums } from '@prisma/client';
-import { User } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FC } from 'react';
 import toast from 'react-hot-toast';
 
-type HomePageActionProps = {
-  user:
-    | (User & {
-        id: string;
-        role: $Enums.UserRole;
-      })
-    | null;
-};
+const HomePageAction = () => {
+  const { update, data: session } = useSession();
 
-const HomePageAction: FC<HomePageActionProps> = ({ user }) => {
-  const { update } = useSession();
+  const user = session?.user ?? null;
   const route = useRouter();
 
   const handleUpladeSession = async () => {
