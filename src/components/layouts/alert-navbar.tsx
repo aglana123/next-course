@@ -3,6 +3,7 @@
 import { getNotification } from '@/actions/get-notification';
 import { RequestAccess } from '@prisma/client';
 import { Bell } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const AlertNavbar = ({ userId }: { userId: string }) => {
@@ -24,15 +25,16 @@ const AlertNavbar = ({ userId }: { userId: string }) => {
     getUserNotification();
   }, [userId]);
 
-  console.log(notification);
   const hasNotification = Boolean(notification?.RequestAccess?.length);
   return (
-    <div className="relative">
-      <Bell className="stroke-primary" />
-      {hasNotification ? (
-        <div className="absolute h-3 w-3 flex items-center justify-center top-0 -right-1 rounded-full bg-primary text-[10px] font-medium" />
-      ) : null}
-    </div>
+    <Link href="/user/notification">
+      <div className="relative">
+        <Bell className="stroke-primary" />
+        {hasNotification ? (
+          <div className="absolute h-3 w-3 flex items-center justify-center top-0 -right-1 rounded-full bg-primary text-[10px]" />
+        ) : null}
+      </div>
+    </Link>
   );
 };
 
