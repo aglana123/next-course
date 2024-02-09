@@ -59,11 +59,17 @@ const NotificationPage = async () => {
           course: {
             include: { author: { select: { name: true } } }
           }
+        },
+        orderBy: {
+          updatedAt: 'asc'
         }
       },
       RequestAccess: {
         include: {
           course: true
+        },
+        orderBy: {
+          createdAt: 'asc'
         }
       }
     }
@@ -71,35 +77,45 @@ const NotificationPage = async () => {
 
   const statusAccessUser = notification?.RequestStatusInfo ?? null;
   const requestAccessTeacher = notification?.RequestAccess ?? null;
+  const isStatusRequestEmpty = !statusAccessUser?.length ?? true;
+  const isMessagesTeacherEmpty = !requestAccessTeacher?.length ?? true;
 
   return (
     <div className="flex flex-col gap-4 ">
-      <h3>Status Permintaan Akses</h3>
-      <div className="flex flex-col gap-1">
-        {statusAccessUser?.map((data) => (
-          <NotificationList
-            key={data.courseId}
-            author_name={data.course.author.name}
-            src={data.course.imageUrl!}
-            title={data.course.title}
-            status={data.status}
-          />
-        ))}
-      </div>
-      <h3>Pesan Permintaan Akses</h3>
-      <div className="gap-1">
-        {requestAccessTeacher?.map((data) => (
-          <TeacherNotificationList
-            key={`${data.senderId}${data.course.id}`}
-            courseId={data.courseId}
-            title={data.course.title}
-            src={data.course.imageUrl!}
-            public_access={data.course.public_access}
-            sender_name={data.senderName}
-            sender_id={data.senderId}
-          />
-        ))}
-      </div>
+      {!isStatusRequestEmpty && (
+        <>
+          <h3>Access Request Status</h3>
+          <div className="flex flex-col gap-1">
+            {statusAccessUser?.map((data) => (
+              <NotificationList
+                key={data.courseId}
+                author_name={data.course.author.name}
+                src={data.course.imageUrl!}
+                title={data.course.title}
+                status={data.status}
+              />
+            ))}
+          </div>
+        </>
+      )}
+      {!isMessagesTeacherEmpty && (
+        <>
+          <h3>Access Request Message</h3>
+          <div className="gap-1">
+            {requestAccessTeacher?.map((data) => (
+              <TeacherNotificationList
+                key={`${data.senderId}${data.course.id}`}
+                courseId={data.courseId}
+                title={data.course.title}
+                src={data.course.imageUrl!}
+                public_access={data.course.public_access}
+                sender_name={data.senderName}
+                sender_id={data.senderId}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
