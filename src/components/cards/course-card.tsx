@@ -28,11 +28,12 @@ const CourseCard: React.FC<CourseCardProps> = ({
           <div className="aspect-video relative">
             <Image
               className="object-cover aspect-video"
+              placeholder="blur"
               fill
               quality={80}
-              sizes="(max-width: 400px) 100vw, (max-width: 700px) 50vw, (max-width: 900px) 33vw, 20vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               src={src}
-              alt="card-img"
+              alt={`image of ${title}`}
             />
           </div>
         </CardHeader>
