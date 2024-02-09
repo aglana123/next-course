@@ -4,9 +4,11 @@ import db from '@/lib/db';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const courses = await db.course.findMany({
+    where: {
+      is_published: true
+    },
     select: {
       id: true,
-      is_published: true,
       slug: true
     }
   });
