@@ -1,10 +1,11 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import useWishlist from '@/hooks/use-wishlist';
-import { Course } from '@prisma/client';
+import { CourseWishlistType } from '@/types/course-wishlist-type';
+
 import Link from 'next/link';
 
-const ActionSection = ({ course }: { course: Course }) => {
+const ActionSection = ({ course }: { course: CourseWishlistType }) => {
   const { addItem } = useWishlist();
 
   const AddToWishlist = () => {

@@ -2,11 +2,11 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { toast } from 'react-hot-toast';
 
-import { CourseDataType } from '@/app/(lobby)/(routes)/course/[courseSlug]/_components/desktop-course-section';
+import { CourseWishlistType } from '@/types/course-wishlist-type';
 
 interface WishlistStore {
-  items: CourseDataType[];
-  addItem: (data: CourseDataType) => void;
+  items: CourseWishlistType[];
+  addItem: (data: CourseWishlistType) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
 }
@@ -15,7 +15,7 @@ const useWishlist = create(
   persist<WishlistStore>(
     (set, get) => ({
       items: [],
-      addItem: (data: CourseDataType) => {
+      addItem: (data: CourseWishlistType) => {
         const currentItems = get().items;
         const existingItem = currentItems.find((item) => item.id === data.id);
 
