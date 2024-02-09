@@ -13,9 +13,9 @@ const NavMenu = ({ user }: { user?: User }) => {
     <>
       {user ? (
         <>
-          <Link className="max-lg:hidden" href={'/courses'}>
+          <Link className="max-lg:hidden" href={'/user/learning'}>
             <span className="whitespace-nowrap text-primary font-medium">
-              My Courses
+              My Learning
             </span>
           </Link>
           <WishlistMenu />
