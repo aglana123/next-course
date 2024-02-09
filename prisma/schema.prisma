@@ -38,6 +38,9 @@ model RequestAccess {
   senderId   String
   senderName String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([courseId, userId, senderId])
 }
 
@@ -53,6 +56,9 @@ model RequestStatusInfo {
   courseId String
   course   Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
   status   RequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([courseId, userId])
 }

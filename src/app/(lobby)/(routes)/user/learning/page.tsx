@@ -11,11 +11,14 @@ const UserCoursesPage = async () => {
   if (!session?.user) {
     return redirect('/');
   }
-
   const userCourses = await getCourses({ userId: session.user.id });
 
+  if (!userCourses) {
+    throw new Error('Failed to Fetch Data');
+  }
+
   return (
-    <div className="container px-0 md:px-4 xl:px-16 py-4 mt-[64px] lg:mt-[80px] w-full">
+    <div className=" w-full">
       <CoursesList items={userCourses} />
     </div>
   );

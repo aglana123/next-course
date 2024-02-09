@@ -22,16 +22,12 @@ import toast from 'react-hot-toast';
 import { ReactNode } from 'react';
 
 const userMenu = [
-  { title: 'My Learning', icon: Book, href: '/my-courses' },
-  { title: 'My Cart', icon: ShoppingBag, href: '/cart' }
+  { title: 'My Learning', icon: Book, href: '/user/learning' },
+  { title: 'My Wishlist', icon: ShoppingBag, href: '/user/wishlist' }
 ];
 const userMenuTeacher = [
-  { title: 'My Learning', icon: Book, href: '/my-courses' },
-  {
-    title: 'My Cart',
-    icon: ShoppingBag,
-    href: '/cart'
-  },
+  { title: 'My Learning', icon: Book, href: '/user/learning' },
+  { title: 'My Wishlist', icon: ShoppingBag, href: '/user/wishlist' },
   {
     title: 'Dashboard Teacher',
     icon: LayoutDashboard,

@@ -4,6 +4,7 @@ import ActionSection from './action-section';
 import db from '@/lib/db';
 import { getAuthSession } from '@/lib/auth';
 import { CourseSectionProps } from './desktop-course-section';
+import AuthActionSection from './auth-action-section';
 
 export const MobileCourseSection: FC<CourseSectionProps> = async ({
   course,
@@ -59,7 +60,12 @@ export const MobileCourseSection: FC<CourseSectionProps> = async ({
         course_updateAt={course.updatedAt}
         studentsCount={studentsCount}
       />
-      <ActionSection course={course} />
+      <AuthActionSection
+        hasAccessToCourse={hasAccessToCourse}
+        isEnrolledInCourse={isEnrolledInCourse}
+        isPublicAccess={isPublicAccess}
+        course={course}
+      />
     </section>
   );
 };

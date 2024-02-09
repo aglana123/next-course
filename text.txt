@@ -10,3 +10,6 @@ after remove
 npx prisma generate 
 npx prisma db push
 npx prisma studio
+
+seed 
+npx prisma db seed
