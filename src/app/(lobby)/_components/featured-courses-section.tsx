@@ -2,7 +2,7 @@ import FeaturedCourses from './featured-courses';
 import { Suspense } from 'react';
 import CoursesCardSkeleton from '@/components/skeleton/courses-card-skeleton';
 
-const FeaturedCoursesSection = async () => {
+const FeaturedCoursesSection = () => {
   return (
     <div className="flex flex-col items-center max-w-screen-xl px-4 mx-auto h-full">
       <div className="mb-8 max-w-sm text-center">
