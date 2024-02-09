@@ -22,7 +22,6 @@ const HeroImages = () => {
       <div className="px-4 lg:px-8 py-2 lg:py-4 bg-white w-fit absolute bottom-0 lg:bottom-10 left-0 lg:left-10 shadow shadow-black/20 rounded-md">
         <BookOpen className="text-teal-600 stroke-1 h-6 w-6 sm:h-8 sm:w-8 lg:w-10 lg:h-10" />
       </div>
-      HeroDescription
     </div>
   );
 };
