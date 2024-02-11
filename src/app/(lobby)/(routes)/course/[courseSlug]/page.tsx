@@ -27,7 +27,6 @@ const CourseIdPage = async ({ params }: { params: { courseSlug: string } }) => {
           <Image
             className="object-cover aspect-video"
             src={course.imageUrl!}
-            placeholder="blur"
             alt={`hero image of ${course.title} course`}
             fill
             sizes="100vw"

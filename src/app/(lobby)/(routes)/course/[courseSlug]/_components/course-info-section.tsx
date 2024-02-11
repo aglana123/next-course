@@ -18,12 +18,12 @@ const CourseInfoSection = ({
 }: CourseInfoSectionProps) => {
   return (
     <div>
-      <h1 className="text-3xl md:text-4xl">{title}</h1>
-      <p className="leading-5 font-medium text-base">{description}</p>
-      <span className="text-sm">
-        Dibuat oleh <span className="font-medium text-sm">{author_name}</span>
+      <h1 className="text-2xl md:text-3xl mb-2">{title}</h1>
+      <p className="mb-1">{description}</p>
+      <span className="text-xs md:text-sm mb-1">
+        Dibuat oleh <strong>{author_name}</strong>
       </span>
-      <div className="flex gap-4 text-black/60">
+      <div className="flex gap-4 text-black/80">
         <span className="flex gap-2 items-center text-xs">
           <Info className="w-4 h-4" /> Terakhir Diupdate{' '}
           {readableDate(course_updateAt)}
