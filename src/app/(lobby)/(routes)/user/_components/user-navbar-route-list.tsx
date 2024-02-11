@@ -22,7 +22,7 @@ const UserNavbarRouteList = ({
           isActive && 'after:bg-primary text-primary'
         )}
       >
-        <h3 className="px-6 py-3">{label}</h3>
+        <h3 className="px-4 md:px-6 py-3">{label}</h3>
       </div>
     </Link>
   );
