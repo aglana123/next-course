@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { User } from 'next-auth';
-import { Button } from '../ui/button';
 import UserMenuNav from './user-menu-nav';
 import UserAvatar from './user-avatar';
 import WishlistMenu from './wishlist-menu';
 import AlertNavbar from './alert-navbar';
+import AuthenticationButton from './authentication-button';
 
 const NavMenu = ({ user }: { user?: User }) => {
   return (
@@ -31,14 +31,7 @@ const NavMenu = ({ user }: { user?: User }) => {
           </UserMenuNav>
         </>
       ) : (
-        <div className="flex items-center gap-2">
-          <Link aria-label="Masuk" href={'/sign-in'}>
-            <Button>Masuk</Button>
-          </Link>
-          <Link aria-label="Daftar" href={'/sign-up'}>
-            <Button variant={'outline'}>Daftar</Button>
-          </Link>
-        </div>
+        <AuthenticationButton />
       )}
     </>
   );
