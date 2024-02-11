@@ -2,9 +2,6 @@ import { getAuthSession } from '@/lib/auth';
 import db from '@/lib/db';
 import { redirect } from 'next/navigation';
 import NotificationList from './_components/notification-list';
-import Image from 'next/image';
-import { Circle, LockKeyhole } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import TeacherNotificationList from './_components/teacher-notification-list';
 
 const NotificationPage = async () => {
@@ -37,6 +34,8 @@ const NotificationPage = async () => {
       <div className="flex flex-col gap-1">
         {statusAccessUser?.map((data) => (
           <NotificationList
+            courseSlug={data.course.slug}
+            courseId={data.courseId}
             key={data.courseId}
             author_name={data.course.author.name}
             src={data.course.imageUrl!}
@@ -88,6 +87,8 @@ const NotificationPage = async () => {
           <div className="flex flex-col gap-1">
             {statusAccessUser?.map((data) => (
               <NotificationList
+                courseSlug={data.course.slug}
+                courseId={data.courseId}
                 key={data.courseId}
                 author_name={data.course.author.name}
                 src={data.course.imageUrl!}
