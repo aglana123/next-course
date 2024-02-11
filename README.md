@@ -1,5 +1,6 @@
 # NextCourse
 **[Visit NextCourse](https://next-course-klu7.vercel.app/)**
+
 NextCourse is a web application designed to help users find and create courses related to various technology topics such as web development, mobile development, data analysis, and machine learning.
 
 ![next-course-klu7 vercel app_ (3)](https://github.com/aglana123/next-course/assets/131781656/33a355e2-d01b-48e3-8902-4f97326fc9fe)
