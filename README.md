@@ -8,7 +8,7 @@ NextCourse is a web application designed to help users find and create courses r
 ## Features
 
 - **Course Search:** Users can search for courses based on keywords, topics, or categories.
-- **Course Creation:** Registered users can create new courses, providing details such as title, description, prerequisites, and duration.
+- **Course Creation:** Registered users can create new courses, providing details such as title, description, prerequisites, and video.
 - **Private Course:** Users can create private courses with restricted access. Only users with authorized access can view and participate in these courses.
 - **User Authentication:** Authentication system for users to register, login, and manage their profiles powered by Next Auth.
 - **Bookmarking/Wishlist:** Users can bookmark courses they are interested in for future reference.
