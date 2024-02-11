@@ -1,15 +1,12 @@
 import { BookOpen, Heart, Trophy } from 'lucide-react';
 import Image from 'next/image';
-
+import heroImage from '@/asset/image1.png';
 const HeroImages = () => {
   return (
     <div className="relative h-fit w-fit lg:h-[558px] max-lg:my-8 lg:col-span-6 max-lg:row-start-1 place-self-center flex justify-center rounded-full lg:rounded-none">
       <Image
-        className="object-cover h-full sm:w-full max-lg:aspect-square max-lg:rounded-full max-lg:border border-input w-64 max-w-sm lg:max-w-2xl drop-shadow-xl"
-        height={670}
-        width={718}
-        placeholder="blur"
-        src="/landing-page/pngwing.com (18).png"
+        className="object-cover h-full  sm:w-full max-lg:aspect-square max-lg:rounded-full max-lg:border border-input w-64 max-w-sm lg:max-w-2xl drop-shadow-xl"
+        src={heroImage}
         alt="hero image for landing page"
         priority
       />
