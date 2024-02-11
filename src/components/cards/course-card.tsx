@@ -28,7 +28,6 @@ const CourseCard: React.FC<CourseCardProps> = ({
           <div className="aspect-video relative">
             <Image
               className="object-cover aspect-video"
-              placeholder="blur"
               fill
               quality={80}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -38,10 +37,10 @@ const CourseCard: React.FC<CourseCardProps> = ({
           </div>
         </CardHeader>
         <hr />
-        <CardContent className="flex flex-col py-6 px-4 h-full">
-          <h3 className="line-claps-with-ellipsis font-semibold">{title}</h3>
+        <CardContent className="flex flex-col pt-4 pb-8 px-4 h-full">
+          <h3 className="line-claps-with-ellipsis mb-0.5 ">{title}</h3>
           <div className="flex flex-col mb-2">
-            <p className="line-claps-with-ellipsis">{desc}</p>
+            <p className="line-claps-with-ellipsis mb-1 text-sm">{desc}</p>
             <small className="text-black/80 text-xs">By {teacher}</small>
           </div>
           {course_access === 'Public' ? (
