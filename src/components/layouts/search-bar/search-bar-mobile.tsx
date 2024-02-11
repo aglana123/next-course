@@ -1,7 +1,6 @@
 'use client';
 
 import { SearchIcon } from 'lucide-react';
-
 import { Sheet, SheetContent, SheetTrigger } from '../../ui/sheet';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
@@ -62,8 +61,9 @@ const SearchBarMobile = () => {
       open={isOpen}
     >
       <SheetTrigger className="h-fit w-fit lg:hidden" asChild>
-        <Button variant="outline" className="h-fit w-fit">
-          <SearchIcon />
+        <Button variant="outline" className="h-fit w-fit p-2">
+          <span className="sr-only">search bar pop-up button</span>
+          <SearchIcon className="w-6 h-6" />
         </Button>
       </SheetTrigger>
       <SheetContent

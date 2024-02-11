@@ -27,13 +27,12 @@ const AlertNavbar = ({ userId }: { userId: string }) => {
 
   const hasNotification = Boolean(notification?.RequestAccess?.length);
   return (
-    <Link href="/user/notification">
-      <div className="relative">
-        <Bell className="stroke-primary" />
-        {hasNotification ? (
-          <div className="absolute h-3 w-3 flex items-center justify-center top-0 -right-1 rounded-full bg-primary text-[10px]" />
-        ) : null}
-      </div>
+    <Link className="relative" href="/user/notification">
+      <span className="sr-only">notification link button</span>
+      <Bell className="stroke-primary" />
+      {hasNotification ? (
+        <div className="absolute h-3 w-3 flex items-center justify-center top-0 -right-1 rounded-full bg-primary text-[10px]" />
+      ) : null}
     </Link>
   );
 };
