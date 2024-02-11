@@ -4,8 +4,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover';
-import { Circle } from 'lucide-react';
-import Link from 'next/link';
+import CategoryList from './category-list';
 
 const CategoriesPopUp = () => {
   return (
@@ -20,12 +19,12 @@ const CategoriesPopUp = () => {
         className="flex flex-col w-[245px]"
       >
         {categoriesAsset.map((category) => (
-          <Link href={`/courses?category=${category.slug}`} key={category.slug}>
-            <div className="group flex items-center gap-2 hover:text-primary h-full py-2">
-              <Circle className="group-hover:fill-primary stroke-none w-3 h-3" />
-              {category.name}
-            </div>
-          </Link>
+          <CategoryList
+            withCircle={true}
+            key={category.slug}
+            name={category.name}
+            slug={category.slug}
+          />
         ))}
       </PopoverContent>
     </Popover>
